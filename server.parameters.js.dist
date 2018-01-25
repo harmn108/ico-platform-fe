@@ -1,0 +1,10 @@
+module.exports = {
+  "use_ssl": false,
+  "domain": null,
+  "https_port": null,
+  "http_port": 3000,
+  "certificate": {
+    "key_path": "",
+    "crt_path": ""
+  }
+};

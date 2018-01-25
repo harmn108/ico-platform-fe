@@ -1,0 +1,27 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "baseUrl": "./",
+    "module": "es2015",
+    "types": []
+  },
+  "include": [
+    "main.ts",
+    "main-server.ts",
+    "polyfills.ts",
+    "../node_modules/arcnet-js/index.ts",
+    "../node_modules/arcnet-js/lib/**/*",
+    "../node_modules/arcnet-js/typings.d.ts",
+    "app/modules/job/job.module.ts",
+    "app/modules/signin/signin.module.ts",
+    "app/modules/signup/signup.module.ts",
+    "app/modules/certificate/certificate.module.ts",
+    "app/modules/template/template.module.ts",
+    "app/modules/wallet/wallet.module.ts"
+  ],
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ]
+}

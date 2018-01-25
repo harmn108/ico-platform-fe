@@ -1,0 +1,7 @@
+{
+    "lng":"ru",
+    "validation":{
+        "invalidEmailAddress":"Your Email Is Invalid",
+        "invalidPassword": "Your Password is Invalid"
+    }
+}

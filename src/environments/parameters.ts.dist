@@ -1,0 +1,14 @@
+/**
+ * Created by gev on 7/19/17.
+ */
+
+/** Configuration of WebSocket IP and port
+ * local machine ws://127.0.0.1:8090 || 192.168.1.9
+ * local server in : ws://209.126.101.30:8090
+ */
+
+export const ARCWORK_NETWORK_WSPATH = 'ws://209.126.101.30:8090';
+export const ARCWORK_URL = 'http://stage-api.workschain.com';
+export const CHAIN_ID = '3f8c341398b5b93973ff2cc0bfe2cf0a711752c2471c8576222b34f717494585';
+export const GA_UA = 'test';
+
