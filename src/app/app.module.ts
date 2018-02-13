@@ -13,7 +13,8 @@ import {AppComponent} from './app.component';
 import {CoreModule} from './core/core.module';
 import {AuthModule} from './auth/auth.module';
 import {SharedModule} from './shared/shared.module';
-import {LanguageGuard} from "./shared/guards/language/language.guard";
+import {LanguageGuard} from './shared/guards/language/language.guard';
+import {ApiService} from "./services/api.service";
 
 // configuration
 export function createTranslateLoader(http: HttpClient) {
@@ -41,7 +42,8 @@ export function createTranslateLoader(http: HttpClient) {
     AuthModule
   ],
   providers: [
-    LanguageGuard
+    LanguageGuard,
+    ApiService
   ],
   bootstrap: [AppComponent]
 })
