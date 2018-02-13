@@ -1,0 +1,59 @@
+@import "../../../assets/variable";
+
+.subscribe {
+
+  max-width: 500px;
+  margin:0 auto;
+
+  small {
+    margin-top: 8px;
+    font-size: 100%;
+  }
+
+  .be-first-to-hear {
+    margin-bottom: 20px;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .email-input-container {
+    width: 100%;
+    max-width: 500px;
+    input {
+      padding: 16px 20px;
+      background: #fff;
+      &[type="email" ] {
+        border: 1px solid #707070;
+        border-right: 0;
+        border-radius: 15px 0 0 15px;
+      }
+      &[type="submit"] {
+        cursor: default;
+        transition: .2s;
+        border: 1px solid #707070;
+        text-transform: uppercase;
+        font-family: sans-serif;
+        border-radius: 0 15px 15px 0;
+        background: #a6a6a6;
+        color: #ffffff;
+        //letter-spacing: 2px;
+        &.enabled {
+          background: #032896;
+          color: #fff;
+          border-left: 1px solid #032896;
+          cursor: pointer;
+
+          &:hover {
+            background: #3366FF;
+          }
+        }
+      }
+    }
+  }
+  .disabled {
+    border: none;
+    background: #8b8b8b;
+    cursor: default;
+  }
+}

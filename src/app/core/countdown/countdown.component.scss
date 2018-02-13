@@ -1,0 +1,188 @@
+@import "../../../assets/variable";
+
+h5.pre-ico {
+  color: $primary;
+  font-size: 20px;
+  //letter-spacing: 1px;
+  font-weight: bold;
+}
+
+h5.ico-live {
+  color: $primary;
+  font-size: 14px;
+  //letter-spacing: 1px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+.countdown {
+  background:rgba(255,255,255,.6);
+  padding: 36px 20px;
+  border-radius: 10px;
+}
+
+.date-block {
+  position: relative;
+
+  mat-progress-spinner {
+    position: absolute;
+  }
+
+  .circle {
+    margin: 0 auto;
+    width: 70px;
+    height: 90px;
+    border: 3px solid $primary;
+    border-radius: 8px;
+    font-size: 30px;
+    //letter-spacing: 2.5px;
+    span {
+      font-size: 20px;
+    }
+    & + span {
+      font-weight: 300;
+      font-size: 14px;
+      //letter-spacing: 2px;
+    }
+  }
+}
+
+.title {
+  position: relative;
+  color: $primary;
+  z-index: 1;
+  h1 {
+    font-size: 26px;
+    //letter-spacing: 1px;
+    line-height: normal;
+  }
+  h2 {
+    font-size: 24px;
+    //letter-spacing: 2px;
+    line-height: normal;
+  }
+  h3 {
+    font-size: 20px;
+    //letter-spacing: 2px;
+    line-height: normal;
+  }
+}
+
+.subscribe {
+  margin-top: -50px;
+
+  app-subscribe {
+    z-index: 1;
+
+    /deep/ small {
+      color: #fff;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    /deep/ .be-first-to-hear {
+      margin-top: 70px;
+      font-size: 100%;
+      text-align: center;
+    }
+
+    /deep/ .email-input-container {
+      height: 58px;
+      max-width: none !important;
+
+      input {
+        height: 100%;
+        border: none;
+
+        &[type="submit"] {
+          font-size: 18px;
+          border-left: 1px solid #707070;
+        }
+      }
+    }
+
+    /deep/ .thanks {
+      text-align: center;
+      color: #fff;
+    }
+
+    /deep/ .error {
+      text-align: center;
+    }
+  }
+}
+
+.rate {
+  position: relative;
+  z-index: 2;
+  border-radius: 50px;
+  color: #fff;
+  background: $dark-background;
+  h4 {
+    font-weight: 300;
+    strong {
+      color: $primary;
+    }
+  }
+}
+.ico-end {
+  font-size: 20px;
+}
+
+.help p {
+  cursor: pointer;
+  font-size: 12px;
+
+  &:hover {
+    color: $primary;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+@media (max-width: 567px) {
+
+  .be-first-to-hear {
+    margin-top: 30px;
+  }
+
+  .date-block {
+    .circle {
+      width: 60px;
+      height: 60px;
+      font-size: 16px;
+      span {
+        font-size: 16px;
+      }
+    }
+    span {
+      font-size: 16px;
+    }
+  }
+  .rate {
+    h4 {
+      font-size: 20px;
+    }
+  }
+  /*app-subscribe {
+    /deep/ .email-input-container {
+      input[type="submit"] {
+        font-size: 3vw !important;
+      }
+    }
+  }*/
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+  app-subscribe {
+    /deep/ .email-input-container {
+      input[type="submit"] {
+        font-size: 14px !important;
+      }
+    }
+  }
+}

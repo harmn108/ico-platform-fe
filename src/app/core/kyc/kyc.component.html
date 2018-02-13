@@ -2,18 +2,52 @@
 <mat-card class="example-card">
 
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Shiba Inu</mat-card-title>
-    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    <mat-card-title> KYC Formed </mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
 
-  </mat-card-content>
+    <form class="" novalidate [formGroup]="kycForm">
 
-  <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
-  </mat-card-actions>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Fullname" formControlName="fullname">
+      </mat-form-field>
+      <div>
+        <app-control-message class="warning mb-4 h6" [control]="kycForm.controls.fullname"></app-control-message>
+      </div>
+
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="bday">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div>
+        <app-control-message class="warning mb-4 h6" [control]="kycForm.controls.bday"></app-control-message>
+      </div>
+
+      <div class="settings-avatar-container">
+        <label for="fileToUpload" class="avatar">
+          <mat-icon>add_a_photo</mat-icon>
+        </label>
+        <input id="fileToUpload" style="display:none;" type="file" (change)="onFileChange($event)">
+        <input type="hidden" formControlName="imageInput"/>
+
+      </div>
+
+      <mat-icon class="mat-18 pointer" (click)="addWallet()">add_box</mat-icon>
+
+      <div formArrayName="wallets">
+        <div *ngFor="let wallet of wallets.controls; index as i">
+          <mat-form-field class="example-full-width">
+            <input matInput [formControlName]="i" placeholder="New Wallet">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <button mat-raised-button color="primary" [disabled]="!kycForm.valid">SAVE</button>
+
+    </form>
+
+  </mat-card-content>
 
 </mat-card>
