@@ -5,14 +5,12 @@ import {SharedModule} from '../shared/shared.module';
 import {AppRoutingModule} from '../app-routing.module';
 import {CommonModule} from '@angular/common';
 import {AuthService} from '../auth/auth.service';
-<<<<<<< HEAD
-import { CountdownComponent } from './countdown/countdown.component'
-import { MatProgressSpinnerModule } from '@angular/material';
-=======
-import { KycComponent } from './kyc/kyc.component';
-import {MatCardModule, MatIconModule} from '@angular/material';
+import {CountdownComponent} from './countdown/countdown.component';
+import {KycComponent} from './kyc/kyc.component';
+import {MatProgressSpinnerModule, MatCardModule, MatIconModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
->>>>>>> 5c598508b158776758f0404dd80f8711b8107259
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
     imports: [
@@ -23,12 +21,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         MatProgressSpinnerModule,
         MatCardModule,
         MatIconModule,
+        BrowserModule,
+        FormsModule,
     ],
     declarations: [
-        HeaderComponent,
         HomeComponent,
         CountdownComponent,
-        KycComponent
+        KycComponent,
     ],
     exports: [
         AppRoutingModule

@@ -3,94 +3,86 @@
     <!--<h1 class=" text-uppercase text-center"-->
     <!--*ngIf="(configService.icoStage === configService.STAGE_PREICO)  && configService.icoDate">-->
     <!--{{ 'home-page.pre-ico' | translate}}</h1>-->
-    <h1 class="text-uppercase text-center">ICO LIVE</h1>
-    <div class="text-center ico-end">ICO ENDS</div>
-  </div>
-</div>
-<div class="row justify-content-center no-gutters mb-5">
-  <div class="col-lg-4 col-md-6 col-sm-8 text-center p-0 countdown">
-    <div
-         class="row no-gutters justify-content-between mb-5">
-      <div class="date-block col">
-        <div class="circle mb-3 d-flex align-items-center justify-content-center font-weight-bold">
-          <mat-progress-spinner class="example-margin"
-                                mode="indeterminate"
-                                strokeWidth="3">
-          </mat-progress-spinner>
-          <ng-template #showDays>
-            <span class="font-weight-bold">{{days}}</span>
-          </ng-template>
+    <div class="col-lg-4 col-md-6 col-sm-8 offset-sm-2 offset-md-3 offset-lg-4 text-center mb-5 countdown">
+      <h1 class="text-uppercase text-center">Token sale starts in</h1>
+      <!--div class="text-center ico-end">ICO ENDS</div-->
+      <div class="row justify-content-center no-gutters">
+        <div class="col-12 mt-3">
+          <div
+            class="row no-gutters justify-content-between">
+            <div class="date-block col">
+              <div class="circle mb-3 d-flex align-items-center justify-content-center font-weight-bold">
+                <!--mat-progress-spinner class="example-margin"
+                                      mode="indeterminate"
+                                      strokeWidth="3">
+                </mat-progress-spinner-->
+                <span class="font-weight-bold">3</span>
+              </div>
+              <span class="text-uppercase">Days</span>
+            </div>
+            <div class="date-block col">
+              <div class="circle mb-3 d-flex align-items-center justify-content-center">
+                <!--mat-progress-spinner class="example-margin"
+                                      mode="indeterminate"
+                                      strokeWidth="3">
+                </mat-progress-spinner-->
+                <span class="font-weight-bold">14</span>
+              </div>
+              <span class="text-uppercase">Hours</span>
+            </div>
+            <div class="date-block col">
+              <div class="circle mb-3 d-flex align-items-center justify-content-center font-weight-bold">
+                <!--mat-progress-spinner class="example-margin"
+                                      mode="indeterminate"
+                                      strokeWidth="3">
+                </mat-progress-spinner-->
+                <span class="font-weight-bold">34</span>
+              </div>
+              <span class="text-uppercase">Minutes</span>
+            </div>
+            <div class="date-block col">
+              <div class="circle mb-3 d-flex align-items-center justify-content-center font-weight-bold">
+                <!--mat-progress-spinner class="example-margin"
+                                      mode="indeterminate"
+                                      strokeWidth="3">
+                </mat-progress-spinner-->
+                <span class="font-weight-bold">54</span>
+              </div>
+              <span class="text-uppercase">Seconds</span>
+            </div>
+          </div>
+          <!--div class="row justify-content-center">
+            <h2 class="col-8">Deadline is</h2>
+          </div>
+          <div class="pb-">
+            <div>
+              <h5 class="font-weight-bold text-uppercase mb-2">Bonus text</h5>
+              <h6 class="mb-4">Expiration hours
+                <span>Expiration days</span>
+                <span>Expiration hours</span>
+              </h6>
+            </div>
+            <button class="button button-fill text-uppercase font-weight-bold" routerLink="./contribute">
+              Contribute
+            </button>
+            <ul class="col-sm-12 d-flex justify-content-center mt-4 mb-3 mb-sm-0 help">
+              <li class="d-flex align-items-right pointer">
+                <img src="../../assets/img/help.svg" alt="" class=" mr-3">
+                <p class="m-0">Help</p>
+              </li>
+            </ul>
+          </div-->
         </div>
-        <span class="text-uppercase">Days</span>
-      </div>
-      <div class="date-block col">
-        <div class="circle mb-3 d-flex align-items-center justify-content-center">
-          <mat-progress-spinner class="example-margin"
-                                mode="indeterminate"
-                                strokeWidth="3">
-          </mat-progress-spinner>
-          <ng-template #showHours>
-            <span class="font-weight-bold">{{hours}}</span>
-          </ng-template>
-        </div>
-        <span class="text-uppercase">Hours</span>
-      </div>
-      <div class="date-block col">
-        <div class="circle mb-3 d-flex align-items-center justify-content-center font-weight-bold">
-          <mat-progress-spinner class="example-margin"
-                                mode="indeterminate"
-                                strokeWidth="3">
-          </mat-progress-spinner>
-          <ng-template #showMinutes>
-            <span class="font-weight-bold">{{minutes}}</span>
-          </ng-template>
-        </div>
-        <span class="text-uppercase">Minutes</span>
-      </div>
-      <div class="date-block col">
-        <div class="circle mb-3 d-flex align-items-center justify-content-center font-weight-bold">
-          <mat-progress-spinner class="example-margin"
-                                mode="indeterminate"
-                                strokeWidth="3">
-          </mat-progress-spinner>
-          <ng-template #showSeconds>
-            <span class="font-weight-bold">{{seconds}}</span>
-          </ng-template>
-        </div>
-        <span class="text-uppercase">Seconds</span>
       </div>
     </div>
-    <div class="row justify-content-center">
-      <h2 class="col-8">Deadline is</h2>
-    </div>
-    <div class="pb-">
-      <div>
-        <h5 class="font-weight-bold text-uppercase mb-2">Bonus text</h5>
-        <h6 class="mb-4">Expiration hours
-          <span>Expiration days</span>
-          <span>Expiration hours</span>
-        </h6>
-      </div>
-      <button class="button button-fill text-uppercase font-weight-bold" routerLink="./contribute">
-        Contribute
-      </button>
-      <ul class="col-sm-12 d-flex justify-content-center mt-4 mb-3 mb-sm-0 help">
-        <li class="d-flex align-items-right pointer">
-          <img src="../../assets/img/help.svg" alt="" class=" mr-3">
-          <p class="m-0">Help</p>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
 
-<div class="row main-grid container-fluid subscribe">
-  <h5 class="col-12 text-uppercase text-center pre-ico">Pre-sale is live nowz1</h5>
-  <br>
-  <h5 class="col-12 text-uppercase text-center ico-live">By invitation only</h5>
-  <!--app-subscribe class="col-sm-10 offset-sm-1 col-12 offset-0 col-md-6 offset-md-3"></app-subscribe-->
-</div>
+    <!--div class="row main-grid container-fluid subscribe">
+      <h5 class="col-12 text-uppercase text-center pre-ico">Pre-sale is live nowz1</h5>
+      <br>
+      <h5 class="col-12 text-uppercase text-center ico-live">By invitation only</h5>
+    </div-->
+    <app-subscribe></app-subscribe>
 
-<!--div class="main-grid container-fluid">
-  <app-progress></app-progress>
-</div-->
+    <!--div class="main-grid container-fluid">
+      <app-progress></app-progress>
+    </div-->

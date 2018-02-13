@@ -1,0 +1,77 @@
+@import "../../../assets/variable";
+
+footer {
+  position: relative;
+  padding: 70px 0 150px;
+  background: #fff;
+  border-top: 1px solid #F2F2F2;
+
+  /deep/ .email-input-container {
+    height:56px;
+
+    input {
+      height:100%;
+    }
+  }
+
+  .copyright {
+    font-size: 14px;
+  }
+  .social {
+    //margin-bottom: 70px;
+    li {
+      font-size: 24px;
+      margin: 0 9px;
+      a {
+        color: #000;
+        &:hover,
+        &:focus,
+        &:active {
+          text-decoration: none;
+          color: $primary;
+          outline: none;
+        }
+      }
+    }
+  }
+  .menu {
+    margin-bottom: 40px;
+  }
+}
+
+/deep/ snack-bar-container.notification-success {
+  color: #fff;
+  background-color: $primary;
+  border-color: $primary-hover;
+}
+
+/deep/ snack-bar-container.notification-error {
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+
+/deep/ snack-bar-container.notification-info {
+  color: #fff;
+  background-color: #5bc0de;
+  border-color: #46b8da;
+}
+
+/deep/ snack-bar-container.notification-warning {
+  color: #fff;
+  background-color: #f0ad4e;
+  border-color: #eea236;
+}
+
+@media (max-width:768px) {
+  /deep/ app-subscribe {
+
+    input {
+      height:100%;
+    }
+    input[type="submit"] {
+      font-size:14px;
+      //letter-spacing:1px;
+    }
+  }
+}
