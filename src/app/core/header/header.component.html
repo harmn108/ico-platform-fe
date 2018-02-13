@@ -1,11 +1,43 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-
-
-    <div class="collapse navbar-collapse">
-
-      <ul class="nav navbar-nav navbar-right">
-      </ul>
+<header [ngClass]="headerClass">
+  <div class="main-grid container-fluid">
+    <div class="row align-items-center justify-content-between no-gutters">
+      <a class="logo">
+        <img src="../../../assets/img/white-logo.svg" class="white-logo" alt="">
+      </a>
+      <nav>
+        <div class="hamburger">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </div>
+        <ul class="menu">
+          <li class="pr-md-4 mr-md-4">
+            <a target="_blank" href="https://publiq.network/">White Paper</a>
+          </li>
+          <!--<li class="pr-md-4"-->
+          <!--*ngIf="(configService.icoStage === configService.STAGE_PREICO)  && !userService.authToken">-->
+          <!--<a routerLink="./pre-ico" (click)="changeClasses()">{{ 'header.pre-ico' | translate }}</a>-->
+          <!--</li>-->
+          <!--<ng-container>-->
+          <li class="pr-md-4"><a>Wallet</a></li>
+          <!--</ng-container>-->
+          <li class="pr-md-4"><a>Exit</a></li>
+          <li class="language-nav-container">
+            <ul class="ml-md-4 font-weight-bold text-uppercase d-flex
+                        flex-md-row flex-column justify-content-between"
+                [ngClass]="active" (clickOutside)="outsideClick()">
+              <li>
+                <span>EN</span>
+                <div class="drop-menu">
+                  <ul>
+                    <li class="font-weight-normal">RU</li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
-</nav>
+</header>

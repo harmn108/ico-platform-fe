@@ -10,10 +10,15 @@ import {
   MatButtonModule, MatDialogModule, MatInputModule, MatProgressBarModule, MatProgressSpinnerModule,
   MatSelectModule, MatCardModule, MatFormFieldModule, MatIconModule, MatDatepickerModule, MatNativeDateModule
 } from '@angular/material';
+import {CountdownComponent} from './countdown/countdown.component';
+import {KycComponent} from './kyc/kyc.component';
+import {MatProgressSpinnerModule, MatCardModule, MatIconModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
 import {ControlMessagesComponent} from './control-message/control-message.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -59,6 +64,28 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   providers: [
     AuthService,
   ],
+    imports: [
+        BrowserAnimationsModule,
+        SharedModule,
+        AppRoutingModule,
+        CommonModule,
+        MatProgressSpinnerModule,
+        MatCardModule,
+        MatIconModule,
+        BrowserModule,
+        FormsModule,
+    ],
+    declarations: [
+        HomeComponent,
+        CountdownComponent,
+        KycComponent,
+    ],
+    exports: [
+        AppRoutingModule
+    ],
+    providers: [
+        AuthService
+    ],
 })
 export class CoreModule {
 }
