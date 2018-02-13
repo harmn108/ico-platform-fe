@@ -26,10 +26,11 @@
       </div>
 
       <div class="settings-avatar-container">
-        <label for="fileToUpload" class="avatar" >
+        <label for="fileToUpload" class="avatar">
           <mat-icon>add_a_photo</mat-icon>
         </label>
-        <input id="fileToUpload" type="file" style="display:none;" formControlName="file">
+        <input id="fileToUpload" style="display:none;" type="file" (change)="onFileChange($event)">
+        <input type="hidden" formControlName="imageInput"/>
 
       </div>
 
