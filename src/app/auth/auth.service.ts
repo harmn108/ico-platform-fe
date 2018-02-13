@@ -6,6 +6,7 @@ import {of} from 'rxjs/observable/of';
 import {catchError} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs/Subject';
+import { environment } from '../../environments/environment';
 
 export interface IToken {
     token: string;
@@ -15,13 +16,15 @@ const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 
-const baseURL = 'http://127.0.0.1:8000/api/v1';
+const baseURL = environment.backend_url + '/api/v1';
 
 @Injectable()
 export class AuthService {
     token: string;
     singInSubject = new Subject<boolean>();
     singUpSubject = new Subject<boolean>();
+
+    
 
     constructor(private http: HttpClient, private router: Router) {
     }
