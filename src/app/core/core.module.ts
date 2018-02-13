@@ -5,16 +5,20 @@ import {SharedModule} from '../shared/shared.module';
 import {AppRoutingModule} from '../app-routing.module';
 import {CommonModule} from '@angular/common';
 import {AuthService} from '../auth/auth.service';
+import { CountdownComponent } from './countdown/countdown.component'
+import { MatProgressSpinnerModule } from '@angular/material';
 
 @NgModule({
     imports: [
         SharedModule,
         AppRoutingModule,
-        CommonModule
+        CommonModule,
+        MatProgressSpinnerModule
     ],
     declarations: [
         HeaderComponent,
-        HomeComponent
+        HomeComponent,
+        CountdownComponent
     ],
     exports: [
         HeaderComponent,
