@@ -1,139 +1,148 @@
-import {Injectable} from '@angular/core';
-import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import {Router} from '@angular/router';
-import {LanguageService} from './lenguage.service';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AuthInfo} from '../shared/local/auth-info';
-import {Wallet} from '../shared/local/wallet';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {WalletType} from '../shared/local/wallet.enum';
+import {Injectable} from "@angular/core";
+import {environment} from "../../environments/environment";
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/catch";
+import "rxjs/add/observable/throw";
+import {Router} from "@angular/router";
+import {LanguageService} from "./lenguage.service";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {AuthInfo} from "../shared/local/auth-info";
+import {Wallet} from "../shared/local/wallet";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {BACKEND_URL} from "../../environments/parameters";
 
 @Injectable()
 export class UserService {
 
-    private readonly headers = new HttpHeaders({'Content-Type': 'application/json'});
-    private readonly usersUrl = environment.ico_url + '/api/v1/user';
-    authToken = null;
-    referralKey = '';
-    agreement: number;
-    currentCurrency;
-    currentBalance = 0;
-    totalBtc = 0;
-    totalEth = 0;
-    totalXmr = 0;
-    totalLtc = 0;
-    totalBch = 0;
-    profileHashParams = '';
-    // ethWallet = new BehaviorSubject(null);
-    ethereum = new BehaviorSubject(null);
-    // btcWallet = new BehaviorSubject(null);
-    bitcoin = new BehaviorSubject(null);
-    // xmrWallet = new BehaviorSubject(null);
-    monero = new BehaviorSubject(null);
-    // ltcWallet = new BehaviorSubject(null);
-    litecoin = new BehaviorSubject(null);
-    // bchWallet = new BehaviorSubject(null);
-    bitcoin_cash = new BehaviorSubject(null);
+  private readonly headers = new HttpHeaders({"Content-Type": "application/json"});
+  private readonly usersUrl = environment.ico_url + "/api/v1/user";
+  authToken = null;
+  referralKey = "";
+  agreement: number;
+  currentCurrency;
+  currentBalance = 0;
+  totalBtc = 0;
+  totalEth = 0;
+  totalXmr = 0;
+  totalLtc = 0;
+  totalBch = 0;
+  profileHashParams = "";
+  // ethWallet = new BehaviorSubject(null);
+  ethereum = new BehaviorSubject(null);
+  // btcWallet = new BehaviorSubject(null);
+  bitcoin = new BehaviorSubject(null);
+  // xmrWallet = new BehaviorSubject(null);
+  monero = new BehaviorSubject(null);
+  // ltcWallet = new BehaviorSubject(null);
+  litecoin = new BehaviorSubject(null);
+  // bchWallet = new BehaviorSubject(null);
+  bitcoin_cash = new BehaviorSubject(null);
 
-    constructor(private http: HttpClient,
-                private router: Router,
-                private languageService: LanguageService) {
+  constructor(private http: HttpClient,
+              private router: Router,
+              private languageService: LanguageService) {
+  }
+
+  emailSubmit(email: string, lang: string, agreement: number) {
+    return this.http.put(this.usersUrl, {email, lang, agreement}, {headers: this.headers})
+      .map(res => res)
+      .catch(err => this.handleError(err));
+  }
+
+  referralEmailSubmit(email: string, lang: string) {
+    return this.http.post(environment.ico_url + "/api/v1/user/send-referral-link", {
+      email,
+      lang
+    }, {headers: this.headers})
+      .catch(err => this.handleError(err));
+  }
+
+  getReferralInfo() {
+    const tokenHeader = new HttpHeaders({"X-AUTH-TOKEN": this.authToken});
+
+    return this.http.get(environment.ico_url + "/api/v1/user/get-referral-info", {headers: tokenHeader})
+      .catch(err => this.handleError(err));
+  }
+
+  subscribeEmailSubmit(email: string, lang: string) {
+    return this.http.post(environment.ico_url + "/api/v1/subscriber/add", {
+      email,
+      lang
+    }, {headers: this.headers})
+      .catch(err => this.handleError(err));
+  }
+
+  submitKyc(formData: FormData) {
+    const tokenHeader = new HttpHeaders({"X-AUTH-TOKEN": this.authToken});
+    return this.http.post(`${BACKEND_URL}/api/v1/user/kyc`, formData, {headers: tokenHeader});
+  }
+
+  getApiKey(code) {
+    return this.http.get(this.usersUrl + `/api-key/${code}`, {headers: this.headers})
+      .map((result: AuthInfo) => {
+        this.totalBtc = result.total_btc;
+        this.totalEth = result.total_eth;
+        this.totalBch = result.total_bch;
+        this.totalLtc = result.total_ltc;
+        this.totalXmr = result.total_xmr;
+        this.authToken = result.token;
+        this.agreement = result.agreement;
+        this.referralKey = result.referralKey;
+        this.currentBalance = result.balance;
+
+        return result;
+      })
+      .catch(err => this.handleError(err));
+  }
+
+  setWallet(wallet) {
+    this.currentCurrency = wallet;
+    const tokenHeader = new HttpHeaders({"X-AUTH-TOKEN": this.authToken});
+    if (!this[wallet].value) {
+      return this.http.post(this.usersUrl + "/set-wallet", {wallet}, {headers: tokenHeader})
+        .map((result: Wallet) => {
+
+          result.imageURL = environment.ico_url + "/" + result.imageURL;
+          result.wallet = wallet;
+
+          this[wallet].next(result);
+
+          return result;
+        })
+        .catch(err => this.handleError(err));
     }
 
-    emailSubmit(email: string, lang: string, agreement: number) {
-        return this.http.put(this.usersUrl, {email, lang, agreement}, {headers: this.headers})
-            .map(res => res)
-            .catch(err => this.handleError(err));
+    return this[wallet];
+
+  }
+
+  confirmAgreement() {
+    const tokenHeader = new HttpHeaders({"X-AUTH-TOKEN": this.authToken});
+    return this.http.post(this.usersUrl + "/agreement-confirmation", "", {headers: tokenHeader})
+      .map(res => this.agreement = 1)
+      .catch(err => this.handleError(err));
+  }
+
+  exit() {
+    this.authToken = "";
+    this.agreement = 0;
+    this.totalBtc = 0;
+    this.totalEth = 0;
+    this.router.navigate([`/${this.languageService.language.value}`]);
+  }
+
+  goToWallet() {
+    this.router.navigate([`/${this.languageService.language.value}/profile/wallet`]);
+  }
+
+  private handleError(error: any): Observable<any> {
+    console.log("ppppp", error);
+    if (error.status === 404) {
+      error._body = "{\"message\": \"user_not_found\"}";
+      return Observable.throw(error);
     }
-
-    referralEmailSubmit(email: string, lang: string) {
-        return this.http.post(environment.ico_url + '/api/v1/user/send-referral-link', {
-            email,
-            lang
-        }, {headers: this.headers})
-            .catch(err => this.handleError(err));
-    }
-
-    getReferralInfo() {
-        const tokenHeader = new HttpHeaders({'X-AUTH-TOKEN': this.authToken});
-
-        return this.http.get(environment.ico_url + '/api/v1/user/get-referral-info', {headers: tokenHeader})
-            .catch(err => this.handleError(err));
-    }
-
-    subscribeEmailSubmit(email: string, lang: string) {
-        return this.http.post(environment.ico_url + '/api/v1/subscriber/add', {
-            email,
-            lang
-        }, {headers: this.headers})
-            .catch(err => this.handleError(err));
-    }
-
-    getApiKey(code) {
-        return this.http.get(this.usersUrl + `/api-key/${code}`, {headers: this.headers})
-            .map((result: AuthInfo) => {
-                this.totalBtc = result.total_btc;
-                this.totalEth = result.total_eth;
-                this.totalBch = result.total_bch;
-                this.totalLtc = result.total_ltc;
-                this.totalXmr = result.total_xmr;
-                this.authToken = result.token;
-                this.agreement = result.agreement;
-                this.referralKey = result.referralKey;
-                this.currentBalance = result.balance;
-
-                return result;
-            })
-            .catch(err => this.handleError(err));
-    }
-
-    setWallet(wallet) {
-        this.currentCurrency = wallet;
-        const tokenHeader = new HttpHeaders({'X-AUTH-TOKEN': this.authToken});
-        if (!this[wallet].value) {
-            return this.http.post(this.usersUrl + '/set-wallet', {wallet}, {headers: tokenHeader})
-                .map((result: Wallet) => {
-
-                    result.imageURL = environment.ico_url + '/' + result.imageURL;
-                    result.wallet = wallet;
-
-                    this[wallet].next(result);
-
-                    return result;
-                })
-                .catch(err => this.handleError(err));
-        }
-
-        return this[wallet];
-
-    }
-
-    confirmAgreement() {
-        const tokenHeader = new HttpHeaders({'X-AUTH-TOKEN': this.authToken});
-        return this.http.post(this.usersUrl + '/agreement-confirmation', '', {headers: tokenHeader})
-            .map(res => this.agreement = 1)
-            .catch(err => this.handleError(err));
-    }
-
-    exit() {
-        this.authToken = '';
-        this.agreement = 0;
-        this.totalBtc = 0;
-        this.totalEth = 0;
-        this.router.navigate([`/${this.languageService.language.value}`]);
-    }
-
-    private handleError(error: any): Observable<any> {
-        console.log('ppppp', error);
-        if (error.status === 404) {
-            error._body = '{"message": "user_not_found"}';
-            return Observable.throw(error);
-        }
-        return Observable.throw(error.message || error);
-    }
+    return Observable.throw(error.message || error);
+  }
 
 }

@@ -9,6 +9,7 @@ import {HomepageComponent} from './core/homepage/homepage.component';
 import {PageNotFoundComponent} from './shared/page-not-found/page-not-found.component';
 import {LinkExpiredComponent} from './shared/link-expired/link-expired.component';
 import {AuthGuard} from './shared/guards/auth/auth.guard';
+import {KycComponent} from "./core/kyc/kyc.component";
 
 const routes: Routes = [
     {
@@ -55,6 +56,11 @@ const routes: Routes = [
               path: 'link-expired',
               pathMatch: 'full',
               component: LinkExpiredComponent
+            },
+            {
+              path: 'kyc',
+              pathMatch: 'full',
+              component: KycComponent
             },
             {   path: 'profile',
               loadChildren: './wallet/wallet.module#WalletModule'

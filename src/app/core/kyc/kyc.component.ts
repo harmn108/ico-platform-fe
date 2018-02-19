@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BACKEND_URL} from "../../../environments/parameters";
+import {HttpClient} from "@angular/common/http";
 import {DatePipe} from "@angular/common";
 import {ValidationService} from "../validator/validator.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: "app-kyc",
@@ -23,7 +23,7 @@ export class KycComponent implements OnInit {
     "idScan": ["application/pdf"],
   };
 
-  constructor(private http: HttpClient, private datepipe: DatePipe) {
+  constructor(private http: HttpClient, private datepipe: DatePipe, private userService: UserService) {
   }
 
   ngOnInit() {
@@ -61,15 +61,9 @@ export class KycComponent implements OnInit {
     formData.append("kyc[photo]", this.kycForm.get("photo").value);
     formData.append("kyc[zip]", this.kycForm.get("zip").value);
 
-    const headers = {
-      headers: new HttpHeaders({
-        "X-AUTH-TOKEN": "5349331464454911147fa9597e343a59"
-      })
-    };
-
-    this.http.post(`${BACKEND_URL}/api/v1/user/kyc`, formData, headers).subscribe(res => {
-      console.log(res);
-    });
+    this.userService.submitKyc(formData).subscribe(
+      () => this.userService.goToWallet(),
+      error => console.log(error.message));
   }
 
   buildForm() {
