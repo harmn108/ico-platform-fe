@@ -7,8 +7,7 @@ section {
 
 .home {
   min-height: 100vh;
-  background: url("../../../assets/images/bg.png") no-repeat center bottom / cover;
-  background-attachment: fixed;
+  background: url("../../../assets/images/bg.png") no-repeat fixed center;
   padding-top: 100px;
   .title,
   /deep/ .contribute,

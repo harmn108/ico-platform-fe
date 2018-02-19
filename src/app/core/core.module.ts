@@ -18,6 +18,11 @@ import {TimelineComponent} from './timeline/timeline.component';
 import {HomepageComponent} from './homepage/homepage.component';
 import {ContributeComponent} from './contribute/contribute.component';
 import {ReferralComponent} from './referral/referral.component';
+import {SwiperModule} from 'angular2-useful-swiper';
+import {FoundationComponent} from './foundation/foundation.component';
+import {ChartComponent} from './chart/chart.component';
+import {ContributeBarComponent} from './contribute-bar/contribute-bar.component';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -26,6 +31,7 @@ import {ReferralComponent} from './referral/referral.component';
     SharedModule,
     AppRoutingModule,
     CommonModule,
+    ChartsModule,
     MatCardModule,
     MatIconModule,
     MatFormFieldModule,
@@ -39,6 +45,7 @@ import {ReferralComponent} from './referral/referral.component';
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
+    SwiperModule
   ],
   declarations: [
     HomeComponent,
@@ -50,7 +57,10 @@ import {ReferralComponent} from './referral/referral.component';
     TimelineComponent,
     HomepageComponent,
     ContributeComponent,
-    ReferralComponent
+    ContributeBarComponent,
+    ReferralComponent,
+    FoundationComponent,
+    ChartComponent
   ],
   exports: [
     AppRoutingModule,
