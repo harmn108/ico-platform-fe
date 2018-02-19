@@ -1,0 +1,83 @@
+<div *ngIf="!isLoggedIn" class="main-grid container-fluid">
+    <div class="row justify-content-center no-gutters">
+        <div class="col-lg-7 col-md-9 col-sm-11 pt-5 pb-5 pr-3 pl-3 pr-sm-5 pl-sm-5 contribute">
+            <form class="" *ngIf="!formSubmited && !answer" novalidate [formGroup]="emailForm"
+                  (ngSubmit)="ReferralEmailSubmit()">
+                <span routerLink="" class="custom-close thick"></span>
+                <h4 class="font-weight-normal mb-2 pl-sm-4 pl-3">{{'referral.join-header' | translate }}</h4>
+                <small class="d-block pl-sm-4 pl-3 mb-4">{{'referral.enter-email' | translate }}</small>
+                <div class="form row no-gutters justify-content-between align-items-center">
+                    <input class="col pl-sm-4 pl-3" placeholder="Email…" formControlName="email" type="email" required/>
+                    <input [ngClass]="buttonStyle" [disabled]="emailForm.invalid" type="submit" value="{{'referral.join' | translate}}" class="button button-fill font-weight-normal text-uppercase">
+                </div>
+                <div class="warning  h6 pl-4 ">
+                    <span class="mb-4 mt-3 d-block" *ngIf="emailWarning">*{{ emailWarning | translate }}</span>
+                    <span class="mb-4 mt-3 d-block" *ngIf="emailNotSetWarning">{{ 'warning.email-not-set-warning' | translate }}</span>
+                </div>
+                <div *ngIf="errorMessage" class="error mb-4 h6">{{errorMessage | translate}}</div>
+            </form>
+            <div *ngIf="formSubmited">
+                <div>
+                    <h4 class="font-weight-normal mb-4 pl-4">{{'referral.wait' | translate }} ...</h4>
+                </div>
+                <section class="example-section">
+                    <mat-card>
+                        <mat-card-content>
+                            <mat-progress-bar
+                                    [color]="progress.color"
+                                    [mode]="progress.mode"
+                                    [value]="progress.value"
+                                    [bufferValue]="progress.bufferValue">
+                            </mat-progress-bar>
+                        </mat-card-content>
+                    </mat-card>
+                </section>
+            </div>
+            <div *ngIf="!formSubmited && answer">
+                <h3 class="font-weight-normal text-center">{{'referral.email-check' | translate}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isLoggedIn" class="main-grid container-fluid">
+    <div class="row justify-content-center no-gutters">
+        <div class="col-lg-7 col-md-9 col-sm-11 pt-5 pb-5 pr-3 pl-3 pr-sm-5 pl-sm-5 get-referal-link">
+            <h4 class="font-weight-normal mb-2 pl-sm-4 pl-3">{{'referral.header' | translate }}</h4>
+            <small class="d-block pl-sm-4 pl-3 mb-4">{{'referral.here-is-your-referral-link' | translate}}</small>
+            <!--<div class="your-referral-link"></div>-->
+            <div class="copy-link row no-gutters justify-content-between align-items-center mb-3">
+                <input [ngModel]="referralLink" class="col pl-sm-4 pl-3" readonly placeholder="Referral link" type="text" required #inputTarget/>
+                <div class="copy-key text-uppercase"
+                     (click)="referralLinkIsCopied(inputTarget)">
+                    <i class="icon-copy"></i>
+                </div>
+            </div>
+            <small *ngIf="bonusInfo?.length" class="d-block font-weight-bold mb-4 pl-4">{{'referral.pbq-info' | translate | sprintf: bonusInfo}}
+            </small>
+            <div class="pl-4 pr-4">
+                <small class="d-block mb-3">{{'referral.share-text' | translate }}</small>
+                <ul class="d-flex social mb-4">
+                    <li>
+                        <a href="http://twitter.com/intent/tweet?text={{referralLink}}"
+                           onclick="window.open(this.href, 'twitterwindow','left=20,top=20,width=600,height=300,toolbar=0,resizable=1'); return false;">
+                            <i class="icon-twitter"></i>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a (click)="share(referralLink)" style="cursor: pointer"><i class="icon-facebook"></i></a>
+                    </li>
+                    <li>
+                        <a href="http://www.linkedin.com/shareArticle?mini=true&url={{referralLink}}"
+                           onclick="window.open(this.href, 'linkedinwindow','left=20,top=20,width=600,height=700,toolbar=0,resizable=1'); return false;">
+                            <i class="icon-linkedin"></i>
+                        </a>
+
+                    </li>
+                </ul>
+                <small>{{'referral.statistics' | translate}} <a (click)="checkWallet()" class="font-weight-bold pointer">{{'referral.wallet-link' | translate}}</a></small>
+            </div>
+        </div>
+    </div>
+</div>

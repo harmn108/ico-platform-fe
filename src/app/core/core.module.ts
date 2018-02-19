@@ -14,6 +14,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
 import {ControlMessagesComponent} from './control-message/control-message.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {TimelineComponent} from './timeline/timeline.component';
+import {HomepageComponent} from './homepage/homepage.component';
+import {ContributeComponent} from './contribute/contribute.component';
+import {ReferralComponent} from './referral/referral.component';
 
 @NgModule({
   imports: [
@@ -43,6 +47,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     HomeComponent,
     CountdownComponent,
     KycComponent,
+    TimelineComponent,
+    HomepageComponent,
+    ContributeComponent,
+    ReferralComponent
   ],
   exports: [
     AppRoutingModule,

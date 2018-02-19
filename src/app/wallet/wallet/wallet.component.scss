@@ -1,0 +1,73 @@
+@import "../../../assets/variable";
+
+.qr {
+    img {
+        max-width: 150px;
+    }
+}
+
+.public-key {
+    display: inline-block;
+    font-size: 24px;
+    color: #000;
+    //letter-spacing: 2px;
+    line-height: normal;
+    overflow: hidden;
+    .key {
+        max-width: calc(100% - 65px);
+        padding:12px!important;
+    }
+}
+
+.copy-key {
+    //border-left: 1px solid #000;
+    max-width: 65px;
+    cursor: pointer;
+    border-radius: 0 50px 50px 0;
+    border: 1px solid #000;
+    border-left: none;
+    transition: .2s;
+
+    &:hover {
+        background: $primary;
+        color:#fff;
+    }
+}
+
+.key {
+    border: 1px solid #000;
+    height: 51px;
+    border-radius: 50px 0 0 50px;
+    font-family: 'CourierNewPSMT', serif;
+    background:#f7f7f7;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+p {
+    //letter-spacing: 1.5px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 32px;
+    margin-top: 26px;
+}
+
+.disabled {
+    border: none;
+    background: #8b8b8b;
+    cursor: default;
+}
+
+@media (max-width: 567px) {
+    .public-key {
+        padding: 10px 15px;
+        font-size: 10px;
+        //letter-spacing: 0;
+    }
+    .key {
+        height: 32px;
+        overflow: hidden;
+    }
+}

@@ -3,9 +3,13 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-import { BACKEND_URL } from './parameters';
+
+import {
+  BACKEND_URL
+} from './parameters';
 
 export const environment = {
-    production: false,
-    backend_url: BACKEND_URL
+  production: false,
+  ico_url: BACKEND_URL,
+  fbapi: ''
 };

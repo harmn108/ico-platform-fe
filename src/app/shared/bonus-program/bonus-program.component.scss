@@ -1,0 +1,80 @@
+.sale {
+    &.inner {
+        .first {
+            border-left: 2px solid #000;
+
+        }
+        .last {
+            border-right: 2px solid #000;
+        }
+        > .percent > div {
+            position: relative;
+            border-top: 2px solid #000;
+            border-bottom: 2px solid #000;
+            background: #fff;
+            &:after {
+                content: "";
+                position: absolute;
+                right: 0;
+                top: -18px;
+                bottom: -18px;
+                width: 1px;
+                background: #000;
+            }
+            &:last-of-type {
+                &:after {
+                    display: none;
+                }
+            }
+            &.active {
+                background: #5F86FB;
+                color: #fff;
+            }
+        }
+    }
+    .first {
+        border-radius: 50px 0 0 50px;
+        border-left: 2px solid #fff;
+
+    }
+    .last {
+        border-radius: 0 50px 50px 0;
+        border-right: 2px solid #fff;
+    }
+    > .percent > div {
+        position: relative;
+        border-top: 2px solid #fff;
+        border-bottom: 2px solid #fff;
+        background: #5F86FB;
+
+        &:after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: -18px;
+            bottom: -18px;
+            width: 1px;
+            background: #fff;
+        }
+        &:last-of-type {
+            &:after {
+                display: none;
+            }
+        }
+        &.active {
+            background: #fff;
+            color: #5F86FB;
+        }
+    }
+}
+
+@media (max-width: 567px) {
+    .sale {
+        > .percent > div > div {
+            font-size: 12px;
+        }
+        .title {
+            font-size: 10px;
+        }
+    }
+}

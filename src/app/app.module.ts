@@ -14,7 +14,7 @@ import {CoreModule} from './core/core.module';
 import {AuthModule} from './auth/auth.module';
 import {SharedModule} from './shared/shared.module';
 import {LanguageGuard} from './shared/guards/language/language.guard';
-import {ApiService} from "./services/api.service";
+import {ApiService} from './services/api.service';
 
 // configuration
 export function createTranslateLoader(http: HttpClient) {

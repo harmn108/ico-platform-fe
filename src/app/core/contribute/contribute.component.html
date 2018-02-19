@@ -1,0 +1,46 @@
+<div class="main-grid container-fluid">
+    <div class="row justify-content-center no-gutters">
+        <div class="col-lg-7 col-md-9 col-sm-11 pt-5 pb-5 pr-3 pl-3 pr-sm-5 pl-sm-5 contribute">
+            <span routerLink="/{{currentLanguage}}" class="custom-close thick"></span>
+            <div *ngIf="!formSubmited && !answer">
+                <small class="d-block pl-sm-4 pl-3 mb-2 contribute-desc-1">{{'contribute.description-1' | translate}}</small>
+                <small class="d-block pl-sm-4 pl-3 mb-4 contribute-desc-2">{{'contribute.description-2' | translate}}</small>
+            </div>
+            <form class="" *ngIf="!formSubmited && !answer" novalidate [formGroup]="emailForm"
+                  (ngSubmit)="EmailSubmit()">
+                <div class="form row no-gutters justify-content-between align-items-center">
+                    <input class="col pl-sm-4 pl-3" placeholder="{{'contribute.enter-your-email' | translate}}" formControlName="email" type="email" required/>
+                    <input [ngClass]="buttonStyle" type="submit" value="{{ 'contribute.request' | translate}}"
+                           [disabled]="emailForm.invalid" class="button button-fill font-weight-normal text-uppercase">
+                </div>
+                <div class="warning  h6 pl-4 ">
+                    <span class="mb-4 mt-3 d-block" *ngIf="emailWarning">*{{ emailWarning | translate }}</span>
+                    <span class="mb-4 mt-3 d-block" *ngIf="conditionsWarning">* {{ 'warning.terms-and-conditions' | translate }}</span>
+                </div>
+                <div class="error  h6 pl-4 ">
+                    <span class="mb-4 mt-3 d-block" *ngIf="errorMessage" [innerHTML]="errorMessage | translate | sprintf: contactUsLink"></span>
+                </div>
+                <div *ngIf="!checkBalance" class="checkbox-block mb-2 pl-sm-4 pl-3 mt-4">
+                    <span class="checkbox">
+                        <input type="checkbox" id="box-1" formControlName="tac"/>
+                        <label for="box-1"></label>
+                    </span>
+                    <span>{{'contribute.pre-terms-and-conditions' | translate}}
+                        <a class="font-weight-bold" (click)="openTac()">{{'contribute.terms-and-conditions' | translate}}</a>.
+                    </span>
+                </div>
+            </form>
+            <div *ngIf="formSubmited">
+                <mat-spinner style="margin: 50px auto;"></mat-spinner>
+            </div>
+            <div class="verify-message" *ngIf="!formSubmited && answer">
+                <!--<h3 *ngIf="configService.icoStage === configService.STAGE_PREICO" class="font-weight-normal mb-4">{{'contribute.contributors-only' | translate}}</h3>-->
+                <h3 class="font-weight-normal mb-4">{{'contribute.email-check' | translate}}</h3>
+                <br>
+                <small class="d-block">{{'contribute.email-receive' | translate}}
+                    <a (click)="backStep()">{{'contribute.email-receive-link' | translate}}</a>
+                </small>
+            </div>
+        </div>
+    </div>
+</div>

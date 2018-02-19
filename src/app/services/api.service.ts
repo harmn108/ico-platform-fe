@@ -24,14 +24,14 @@ export class ApiService {
   }
 
   getRates(): BehaviorSubject<any> {
-    return this.rates.next(environment.backend_url + '/api/v1/pbq/rates');
+    return this.rates.next(environment.ico_url + '/api/v1/pbq/rates');
   }
 
   getTimelines(lang): BehaviorSubject<any> {
-    return this.timeline.next(environment.backend_url + `/api/v1/general/get-timeline/${lang}`);
+    return this.timeline.next(environment.ico_url + `/api/v1/general/get-timeline/${lang}`);
   }
 
   getTotalTransfers(): BehaviorSubject<any> {
-    return this.totalTransfers.next(`${environment.backend_url}/api/v1/general/get-total-transfers`);
+    return this.totalTransfers.next(`${environment.ico_url}/api/v1/general/get-total-transfers`);
   }
 }

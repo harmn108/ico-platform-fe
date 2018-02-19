@@ -16,7 +16,7 @@ const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 
-const baseURL = environment.backend_url + '/api/v1';
+const baseURL = environment.ico_url + '/api/v1';
 
 @Injectable()
 export class AuthService {
@@ -24,7 +24,7 @@ export class AuthService {
     singInSubject = new Subject<boolean>();
     singUpSubject = new Subject<boolean>();
 
-    
+
 
     constructor(private http: HttpClient, private router: Router) {
     }

@@ -1,0 +1,82 @@
+@import "../../../assets/variable";
+
+.get-referal-link {
+    .copy-link {
+        width: 100%;
+        background: #fff;
+        border-radius: 50px;
+        //border: 1px solid #999;
+        overflow: hidden;
+        input {
+            padding-right: 20px;
+            border: none;
+            font-size: 18px;
+            //letter-spacing: 0.5px;
+            &:focus {
+                outline: none;
+            }
+        }
+        .copy-key {
+            padding: 11px 23px;
+            font-size: 22px;
+            border-radius: 0 50px 50px 0;
+            border-left: 1px solid #999;
+            color: #000;
+            &:hover {
+                color: #999;
+                cursor: pointer;
+            }
+        }
+    }
+    small{
+        a{
+            color: #fff;
+            &:hover{
+                color: $primary;
+            }
+        }
+    }
+    .under-form {
+        a {
+            color: #fff;
+            cursor: pointer;
+            font-weight: 700;
+        }
+    }
+
+    .social {
+        li {
+            margin-right: 20px;
+            a {
+                color: #fff;
+
+                i {
+                    font-size: 24px;
+                }
+                &:hover {
+                    color: $primary;
+                }
+            }
+        }
+    }
+}
+
+.disabled {
+    border: none;
+    background: #8b8b8b;
+    cursor: default;
+}
+
+.enabled {
+    border: none;
+    background: #032896;
+    cursor: pointer;
+
+    &:hover {
+        background: #3366FF;
+    }
+}
+
+.pointer {
+    cursor: pointer;
+}

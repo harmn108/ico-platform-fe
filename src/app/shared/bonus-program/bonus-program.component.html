@@ -1,0 +1,18 @@
+
+<div class="m-5">
+    <h4 class="font-weight-bold text-uppercase mb-0">{{'bonus-program.header' | translate }}</h4>
+</div>
+
+<div class="row no-gutters justify-content-center sale" [ngClass]="classReverse"
+     *ngIf="configService.icoStage === configService.STAGE_ICO">
+    <div class="col-md-10 mb-2 percent" fxLayout="row">
+        <div [fxFlex]="bonus.timePercent" [ngClass]="bonus.style" *ngFor="let bonus of bonuses">
+            <div class="pt-sm-3 pb-sm-3 pt-2 pb-2 h5 m-0">{{bonus.bonus}}%</div>
+        </div>
+    </div>
+    <div class="col-md-10 d-flex no-gutters title" fxLayout="row">
+        <div [fxFlex]="bonus.timePercent" *ngFor="let bonus of bonuses">
+            <small>{{'bonus-program.' + bonus.dateText[0] | translate | sprintf: bonus.dateText[1]}}</small>
+        </div>
+    </div>
+</div>

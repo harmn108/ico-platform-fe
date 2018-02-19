@@ -1,0 +1,25 @@
+<section class="timeline text-center">
+    <h2 class="text-uppercase h3">{{ 'time-line.header' | translate}}</h2>
+    <div class="timeline-items pb-5">
+        <swiper [config]="config">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" *ngFor="let item of timeline" >
+                    <h5>{{item.title}}</h5>
+                    <div class="status">
+                        <div [ngClass]="{'active': (now > item.date), 'timeline-oval': true}">
+                            <div class="inside"></div>
+                        </div>
+                        <div class="date-place">
+                            <div>{{'time-line.' + (item.date * 1000 | date:'MMMM') | translate }} {{item.date * 1000 | date:'y'}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </swiper>
+    </div>
+</section>
