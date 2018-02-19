@@ -12,70 +12,76 @@
         <input matInput placeholder="Fullname" formControlName="fullName">
       </mat-form-field>
       <div>
-        <app-control-message class="warning mb-4 h6" [control]="kycForm.controls.fullName"></app-control-message>
+        <app-control-message class="warning mb-4 h6" [control]="kycForm.controls['fullName']"></app-control-message>
       </div>
       <!--=======address=========-->
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Address" formControlName="address">
       </mat-form-field>
       <div>
-        <app-control-message class="warning mb-4 h6" [control]="kycForm.controls.address"></app-control-message>
+        <app-control-message class="warning mb-4 h6" [control]="kycForm.controls['address']"></app-control-message>
       </div>
       <!--=======country=========-->
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Country" formControlName="country">
       </mat-form-field>
       <div>
-        <app-control-message class="warning mb-4 h6" [control]="kycForm.controls.country"></app-control-message>
+        <app-control-message class="warning mb-4 h6" [control]="kycForm.controls['country']"></app-control-message>
       </div>
       <!--=======zip=========-->
       <mat-form-field class="example-full-width">
         <input matInput placeholder="ZipCode" formControlName="zip">
       </mat-form-field>
       <div>
-        <app-control-message class="warning mb-4 h6" [control]="kycForm.controls.zip"></app-control-message>
+        <app-control-message class="warning mb-4 h6" [control]="kycForm.controls['zip']"></app-control-message>
       </div>
       <!--=======gender=========-->
       <mat-form-field>
-        <mat-select placeholder="Gender" [formControl]="kycForm.controls.gender">
+        <mat-select placeholder="Gender" [formControl]="kycForm.controls['gender']">
           <mat-option [value]="0">Male</mat-option>
           <mat-option [value]="1">Female</mat-option>
         </mat-select>
       </mat-form-field>
       <div>
-        <app-control-message class="warning mb-4 h6" [control]="kycForm.controls.gender"></app-control-message>
+        <app-control-message class="warning mb-4 h6" [control]="kycForm.controls['gender']"></app-control-message>
       </div>
       <!--======birthDay==========-->
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="BirthDay" formControlName="birthDay">
+        <input matInput [matDatepicker]="picker" [max]="maxDate" placeholder="BirthDay"
+               formControlName="birthday" readonly>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker #picker disabled="false"></mat-datepicker>
       </mat-form-field>
       <div>
-        <app-control-message class="warning mb-4 h6" [control]="kycForm.controls.birthDay"></app-control-message>
+        <app-control-message class="warning mb-4 h6" [control]="kycForm.controls['birthday']"></app-control-message>
       </div>
       <!--========photo========-->
       <div class="settings-avatar-container">
         <label for="photo" class="avatar">
           <mat-icon>add_a_photo</mat-icon>
-          Upload your photo
+          <span *ngIf="!kycForm.value.photo.name" class="uploaded-placeholder">Upload your photo</span>
+          <span *ngIf="kycForm.value.photo.name"
+                class="uploaded-file">{{kycForm.value.photo.name}}</span>
         </label>
         <input id="photo" style="display:none;" type="file" (change)="onFileChange($event, 'photo')">
         <input type="hidden" formControlName="photo"/>
         <div>
-          <app-control-message class="warning mb-4 h6" [control]="kycForm.controls.photo"></app-control-message>
+          <app-control-message class="warning mb-4 h6" [control]="kycForm.controls['photo']"></app-control-message>
         </div>
       </div>
       <!--=======idScan=========-->
       <div class="settings-avatar-container">
         <label for="idScan" class="avatar">
           <mat-icon>add_a_photo</mat-icon>
-          Upload the scan of your id
+          <span *ngIf="!kycForm.value.idScan.name"
+                class="uploaded-placeholder">Upload the scan of your id</span>
+          <span *ngIf="kycForm.value.idScan.name"
+                class="uploaded-file">{{kycForm.value.idScan.name}}</span>
         </label>
         <input id="idScan" style="display:none;" type="file" (change)="onFileChange($event, 'idScan')">
         <input type="hidden" formControlName="idScan"/>
         <div>
-          <app-control-message class="warning mb-4 h6" [control]="kycForm.controls.idScan"></app-control-message>
+          <app-control-message class="warning mb-4 h6" [control]="kycForm.controls['idScan']"></app-control-message>
         </div>
       </div>
       <!--================-->
