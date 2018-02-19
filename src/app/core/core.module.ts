@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {HomeComponent} from './home/home.component';
 import {SharedModule} from '../shared/shared.module';
 import {AppRoutingModule} from '../app-routing.module';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from "@angular/common";
 import {AuthService} from '../auth/auth.service';
 import {KycComponent} from './kyc/kyc.component';
 import {
@@ -79,6 +79,7 @@ import {ChartsModule} from 'ng2-charts';
   ],
   providers: [
     AuthService,
+    DatePipe
   ]
 })
 export class CoreModule {
