@@ -37,7 +37,7 @@ import {CoreModule} from './core/core.module';
 import {ErrorService} from './services/error.service';
 
 export function exportTranslateStaticLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
 }
 
 @NgModule({

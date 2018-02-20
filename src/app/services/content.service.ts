@@ -1,51 +1,68 @@
-import {EventEmitter, Injectable} from '@angular/core';
-import {environment} from '../../environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {RouteSubject} from './route-subject';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {EventEmitter, Inject, Injectable, PLATFORM_ID} from "@angular/core";
+import {environment} from "../../environments/environment";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {RouteSubject} from "./route-subject";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {isPlatformBrowser} from "@angular/common";
 
 @Injectable()
 export class ContentService {
 
-    private readonly baseUrl = environment.ico_url + '/api/v1/general';
-    public addHomeClassEvent$: EventEmitter<any> = new EventEmitter(true);
+  private readonly baseUrl = environment.ico_url + "/api/v1/general";
+  public addHomeClassEvent$: EventEmitter<any> = new EventEmitter(true);
 
-    lang = '';
-    // translations
-    private wallet: RouteSubject;
-    private homepage: RouteSubject;
-    private tokenAllocation: RouteSubject;
-    private fundAllocation: RouteSubject;
-    private ecosystem: RouteSubject;
+  lang = "";
+  // translations
+  private wallet: RouteSubject;
+  private homepage: RouteSubject;
+  private tokenAllocation: RouteSubject;
+  private fundAllocation: RouteSubject;
+  private ecosystem: RouteSubject;
 
-    constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              @Inject(PLATFORM_ID) private platformId: Object) {
 
-        const headers = new HttpHeaders({'Content-Type': 'application/json', 'x-local-cache': 'true'});
+    const headers = new HttpHeaders({"Content-Type": "application/json", "x-local-cache": "true"});
 
-        this.wallet = new RouteSubject(this.http, headers);
-        this.homepage = new RouteSubject(this.http, headers);
-        this.tokenAllocation = new RouteSubject(this.http, headers);
-        this.fundAllocation = new RouteSubject(this.http, headers);
-        this.ecosystem = new RouteSubject(this.http, headers);
+    this.wallet = new RouteSubject(this.http, headers);
+    this.homepage = new RouteSubject(this.http, headers);
+    this.tokenAllocation = new RouteSubject(this.http, headers);
+    this.fundAllocation = new RouteSubject(this.http, headers);
+    this.ecosystem = new RouteSubject(this.http, headers);
+  }
+
+  getHomepageContent(lang: string): BehaviorSubject<any> {
+    if (isPlatformBrowser(this.platformId)) {
+
+      return this.homepage.next(this.baseUrl + "/get-homepage-content/" + lang);
     }
+  }
 
-    getHomepageContent(lang: string): BehaviorSubject<any> {
-        return this.homepage.next(this.baseUrl + '/get-homepage-content/' + lang);
-    }
+  getWalletContent(lang: string): BehaviorSubject<any> {
+    if (isPlatformBrowser(this.platformId)) {
 
-    getWalletContent(lang: string): BehaviorSubject<any> {
-        return this.wallet.next(this.baseUrl + '/get-wallet-content/' + lang);
+      return this.wallet.next(this.baseUrl + "/get-wallet-content/" + lang);
     }
+  }
 
-    getEcosystem(lang: string): BehaviorSubject<any> {
-        return this.wallet.next(this.baseUrl + '/get-publiq-ecosystem/' + lang);
-    }
+  getEcosystem(lang: string): BehaviorSubject<any> {
+    if (isPlatformBrowser(this.platformId)) {
 
-    getTokenAllocation(lang: string): BehaviorSubject<any> {
-        return this.tokenAllocation.next(this.baseUrl + '/get-token-allocation/' + lang);
+      return this.wallet.next(this.baseUrl + "/get-publiq-ecosystem/" + lang);
     }
+  }
 
-    getFundAllocation(lang: string): BehaviorSubject<any> {
-        return this.fundAllocation.next(this.baseUrl + '/get-fund-allocation/' + lang);
+  getTokenAllocation(lang: string): BehaviorSubject<any> {
+    if (isPlatformBrowser(this.platformId)) {
+
+      return this.tokenAllocation.next(this.baseUrl + "/get-token-allocation/" + lang);
     }
+  }
+
+  getFundAllocation(lang: string): BehaviorSubject<any> {
+    if (isPlatformBrowser(this.platformId)) {
+
+      return this.fundAllocation.next(this.baseUrl + "/get-fund-allocation/" + lang);
+    }
+  }
 }
