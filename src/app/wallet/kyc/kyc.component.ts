@@ -13,14 +13,14 @@ import {UserService} from "../../services/user.service";
 export class KycComponent implements OnInit {
 
   kycForm: FormGroup;
-
+  loading = false;
   private errorMessages: string;
   private conditionsWarning: string;
   private uploadMaxSize = 2603875;
   maxDate = new Date(new Date().getFullYear() - 16, new Date().getMonth(), new Date().getDate());
   private uploadTypes = {
     "photo": ["image/png", "image/jpg", "image/jpeg"],
-    "idScan": ["application/pdf"],
+    "idScan": ["application/pdf", "image/jpg", "image/jpeg"],
   };
 
   constructor(private http: HttpClient, private datepipe: DatePipe, private userService: UserService) {
@@ -30,7 +30,6 @@ export class KycComponent implements OnInit {
     this.buildForm();
     this.kycForm.valueChanges.subscribe(() => {
 
-        // console.log("valid--- ", this.kycForm.valid, this.kycForm);
 
         this.errorMessages = "";
         this.conditionsWarning = "";
@@ -51,6 +50,7 @@ export class KycComponent implements OnInit {
   }
 
   submitKyc() {
+    this.loading = true;
     const formData: FormData = new FormData();
     formData.append("kyc[fullName]", this.kycForm.get("fullName").value);
     formData.append("kyc[birthday]", this.datepipe.transform(this.kycForm.get("birthday").value, "yyyy-MM-dd"));
@@ -62,7 +62,10 @@ export class KycComponent implements OnInit {
     formData.append("kyc[zip]", this.kycForm.get("zip").value);
 
     this.userService.submitKyc(formData).subscribe(
-      () => this.userService.goToWallet(),
+      () => {
+        this.loading = false;
+        this.userService.goToWallet();
+      },
       error => console.log(error.message));
   }
 
