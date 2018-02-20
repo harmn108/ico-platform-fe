@@ -22,9 +22,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public walletName = WalletType;
   showLoading: boolean = null;
   readonly wallets = [
-    {shortname: "BTC", name: "bitcoin", icon: "icon-bitcoin"},
-    {shortname: "ETH", name: "ethereum", icon: "icon-etherium"},
-    {shortname: null, name: "other", icon: "icon-other"}
+    {shortname: "btc", name: "bitcoin", icon: "icon-bitcoin"},
+    {shortname: "eth", name: "etherium", icon: "icon-etherium"}
   ];
 
   error = "";
@@ -55,6 +54,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.language = lang;
       this.agreement = this.userService.agreement;
     });
+
     this.configService.getIcoDate().subscribe(
       data => {
         this.walletTotalBalance = this.userService.currentBalance;
@@ -115,7 +115,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   setWallet(index: number): any {
-    this.currentWallet = this.wallets[index].name;
+    this.currentWallet = this.wallets[index].shortname;
+    console.log(this.currentWallet);
   }
 
   private chooseWallet(code) {

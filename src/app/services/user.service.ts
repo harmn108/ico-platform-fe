@@ -25,20 +25,10 @@ export class UserService {
   currentBalance = 0;
   totalBtc = 0;
   totalEth = 0;
-  totalXmr = 0;
-  totalLtc = 0;
-  totalBch = 0;
+  walletTypes = [];
   profileHashParams = "";
-  // ethWallet = new BehaviorSubject(null);
-  ethereum = new BehaviorSubject(null);
-  // btcWallet = new BehaviorSubject(null);
-  bitcoin = new BehaviorSubject(null);
-  // xmrWallet = new BehaviorSubject(null);
-  monero = new BehaviorSubject(null);
-  // ltcWallet = new BehaviorSubject(null);
-  litecoin = new BehaviorSubject(null);
-  // bchWallet = new BehaviorSubject(null);
-  bitcoin_cash = new BehaviorSubject(null);
+  eth = new BehaviorSubject(null);
+  btc = new BehaviorSubject(null);
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -82,11 +72,10 @@ export class UserService {
   getApiKey(code) {
     return this.http.get(this.usersUrl + `/api-key/${code}`, {headers: this.headers})
       .map((result: AuthInfo) => {
+        console.log(result);
         this.totalBtc = result.total_btc;
         this.totalEth = result.total_eth;
-        this.totalBch = result.total_bch;
-        this.totalLtc = result.total_ltc;
-        this.totalXmr = result.total_xmr;
+        this.walletTypes = result.walletTypes;
         this.authToken = result.token;
         this.agreement = result.agreement;
         this.referralKey = result.referralKey;
@@ -101,7 +90,7 @@ export class UserService {
     this.currentCurrency = wallet;
     const tokenHeader = new HttpHeaders({"X-AUTH-TOKEN": this.authToken});
     if (!this[wallet].value) {
-      return this.http.post(this.usersUrl + "/set-wallet", {wallet}, {headers: tokenHeader})
+      return this.http.get(this.usersUrl + `/get-wallet-data/${wallet}`, {headers: tokenHeader})
         .map((result: Wallet) => {
 
           result.imageURL = environment.ico_url + "/" + result.imageURL;
@@ -138,7 +127,6 @@ export class UserService {
   }
 
   private handleError(error: any): Observable<any> {
-    console.log("ppppp", error);
     if (error.status === 404) {
       error._body = "{\"message\": \"user_not_found\"}";
       return Observable.throw(error);
