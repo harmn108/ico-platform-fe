@@ -109,10 +109,12 @@ section {
 }
 
 .info {
-    background: $primary;
-    color: #fff;
+    background: #fff;
+    color: $primary;
     font-size: 14px;
+    overflow:hidden;
     padding: 100px 0;
+
     pre {
         color: #fff;
         font-size: 14px;
