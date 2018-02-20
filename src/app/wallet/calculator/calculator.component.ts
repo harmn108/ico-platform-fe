@@ -14,7 +14,7 @@ export class CalculatorComponent implements OnInit {
   public currencies = [];
   public bonusData;
   public calculatedBonus: number;
-  public calculatedPBQ: any;
+  public calculatedToken: any;
   public calculatorForm: FormGroup;
   public selectedCurrency = '';
 
@@ -78,7 +78,7 @@ export class CalculatorComponent implements OnInit {
   calculate(data: any) {
     if (this.currencyMap && this.currencyMap.has(data.currency)) {
       const calculatedNumber = parseFloat(data.value) / this.currencyMap.get(data.currency);
-      this.calculatedPBQ = parseFloat(calculatedNumber.toFixed(6));
+      this.calculatedToken = parseFloat(calculatedNumber.toFixed(6));
 
       if (this.bonusData.bonus) {
         const bonus = calculatedNumber * this.bonusData.bonus / 100;

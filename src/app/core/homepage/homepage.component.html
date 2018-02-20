@@ -5,25 +5,25 @@
             <router-outlet *ngIf="isBrowser"></router-outlet>
         </div>
 
-        <div class="row home-footer main-grid" [hidden]="!homeFooterVisibility" *ngIf="visaFooter">
+        <!--div class="row home-footer main-grid" [hidden]="!homeFooterVisibility" *ngIf="visaFooter">
             <div class="col-sm-4 mb-3 mb-sm-0">
                 <div class="d-flex align-items-center viza">
                     <!--<img src="../../assets/img/visa.svg" alt="" class="viza mr-2">-->
-                    <!--<img src="../../assets/img/mastercard.svg" alt="" class="mastercard mr-3">-->
+                    <!--<img src="../../assets/img/mastercard.svg" alt="" class="mastercard mr-3">>
                     <p class="m-0">{{ 'countdown.credit-cards' | translate }}</p>
                 </div>
             </div>
             <ul class="col-sm-4 offset-sm-4 d-flex justify-content-sm-end mb-3 mb-sm-0">
                 <li class="d-flex mr-4">
-                    <!--<img src="../../assets/img/lock.svg" alt="" class="lock mr-3">-->
+                    <!--<img src="../../assets/img/lock.svg" alt="" class="lock mr-3">>
                     <p class="m-0">{{ 'countdown.secure' | translate}}</p>
                 </li>
                 <li class="d-flex">
-                    <!--<img src="../../assets/img/incognito.svg" alt="" class="incognito mr-3">-->
+                    <!--<img src="../../assets/img/incognito.svg" alt="" class="incognito mr-3">>
                     <p class="m-0">{{ 'countdown.privacy' | translate }}</p>
                 </li>
             </ul>
-        </div>
+        </div-->
     </div>
 
     <div *ngIf="pageContent">
@@ -37,7 +37,7 @@
                             <i class="icon-checkmark mr-4"></i>
                             <h4 class="font-weight-bold text-uppercase">{{fact?.title}}</h4>
                         </div>
-                        <pre><p [innerHTML]="fact?.content"></p></pre>
+                        <pre class="mt-4"><p [innerHTML]="fact?.content"></p></pre>
                     </div>
                 </div>
                 <div class="text-center">
@@ -75,10 +75,10 @@
         <div class="ecosystem">
             <div class="main-grid container-fluid text-center">
                 <h2 class="text-uppercase h3">{{'ecosystem.header' | translate}}</h2>
-                <h4 class="">{{'ecosystem.co-op' | translate}}</h4>
                 <div class="row no-gutters">
                     <div *ngFor="let item of ecosystemData" class="col-md-4 col-sm-6 pl-5 pr-5 mb-4">
-                        <img *ngIf="item.fileName" src="{{filesUrl}}/{{item.fileName}}" alt="">
+                        <!--img *ngIf="item.fileName" src="{{filesUrl}}/{{item.fileName}}" alt=""-->
+                        <div class="icon-checkmark mx-auto mb-4"></div>
                         <h5 class="text-uppercase">{{item.title}}</h5>
                         <pre><p [innerHTML]="item.content"></p></pre>
                     </div>

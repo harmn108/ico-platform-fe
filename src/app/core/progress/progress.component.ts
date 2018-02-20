@@ -17,7 +17,7 @@ export class ProgressComponent implements OnInit {
     public hardProgressBar = {width: 0, css_class: ['soft-cup-loader']};
     public softCapClass = ['col-9', 'soft-cap'];
     public spanStyle = {left: '', right: ''};
-    private readonly minProgressLen: number = 2;
+    private readonly minProgressLen = 2;
 
     constructor(private apiService: ApiService, private configService: ConfigService) {
     }
@@ -34,8 +34,8 @@ export class ProgressComponent implements OnInit {
     getCurrentProgress() {
         this.apiService.getTotalTransfers()
             .subscribe(data => {
-                if (data && data['totalSoldPbq']) {
-                    this.currentProgress = data['totalSoldPbq'];
+                if (data && data['totalSoldToken']) {
+                    this.currentProgress = data['totalSoldToken'];
                     this.currentProgressPercentage = Math.round(
                         this.currentProgress * 100 / (this.hardCap + this.softCap)
                     );
@@ -45,7 +45,7 @@ export class ProgressComponent implements OnInit {
                         this.softCapClass.push('norm');
 
                         // =====calculate the progress bar length=====
-                        let softProgressBarWidth = Number(
+                        const softProgressBarWidth = Number(
                             (
                                 (this.currentProgress / this.softCap * 100)
                             ).toFixed(3)
@@ -67,7 +67,7 @@ export class ProgressComponent implements OnInit {
                         this.softCapClass.push('sep');
 
                         // calculate the progress bar length
-                        let hardExcess = this.currentProgress - this.softCap;
+                        const hardExcess = this.currentProgress - this.softCap;
                         this.softProgressBar.width = 100;
                         this.hardProgressBar.width = Number(
                             (

@@ -24,7 +24,7 @@ export class WindowRefService {
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
-  styleUrls: ['../home/home.component.scss'],
+  styleUrls: ['./homepage.component.scss'],
 
 })
 
@@ -72,7 +72,8 @@ export class HomepageComponent implements OnInit {
       this.homeClassValue = acc;
     });
 
-    this.up();
+    // this.up();
+
     this.rates$ = this.api.getRates();
     this.contentService.getHomepageContent(this.languageService.language.value).subscribe(
       data => {

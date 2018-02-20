@@ -11,11 +11,11 @@ import {WalletType} from '../../shared/local/wallet.enum';
 export class TransfersComponent implements OnInit {
 
     readonly wallets = [WalletType.Bitcoin, WalletType.Ethereum, WalletType.BitcoinCash, WalletType.Litecoin, WalletType.Monero];
-    bitcoinTotalPBQ = 0;
-    ethereumTotalPBQ = 0;
-    moneroTotalPBQ = 0;
-    bitcoinCashTotalPBQ = 0;
-    litecoinTotalPBQ = 0;
+    bitcoinTotalToken = 0;
+    ethereumTotalToken = 0;
+    moneroTotalToken = 0;
+    bitcoinCashTotalToken = 0;
+    litecoinTotalToken = 0;
     transactions = [];
     step = 0;
     error = '';
@@ -35,23 +35,23 @@ export class TransfersComponent implements OnInit {
                         data.transactions.forEach(transaction => {
                             if (wallet === WalletType.Bitcoin) {
                                 transaction['key'] = wallet;
-                                this.bitcoinTotalPBQ += transaction['pbqAmount'];
+                                this.bitcoinTotalToken += transaction['tokenAmount'];
                             }
                             if (wallet === WalletType.Ethereum) {
                                 transaction['key'] = wallet;
-                                this.ethereumTotalPBQ += transaction['pbqAmount'];
+                                this.ethereumTotalToken += transaction['tokenAmount'];
                             }
                             if (wallet === WalletType.BitcoinCash) {
                                 transaction['key'] = wallet;
-                                this.bitcoinCashTotalPBQ += transaction['pbqAmount'];
+                                this.bitcoinCashTotalToken += transaction['tokenAmount'];
                             }
                             if (wallet === WalletType.Monero) {
                                 transaction['key'] = wallet;
-                                this.moneroTotalPBQ += transaction['pbqAmount'];
+                                this.moneroTotalToken += transaction['tokenAmount'];
                             }
                             if (wallet === WalletType.Litecoin) {
                                 transaction['key'] = wallet;
-                                this.litecoinTotalPBQ += transaction['pbqAmount'];
+                                this.litecoinTotalToken += transaction['tokenAmount'];
                             }
                         });
 
