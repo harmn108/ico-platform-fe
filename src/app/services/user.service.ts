@@ -72,7 +72,6 @@ export class UserService {
   getApiKey(code) {
     return this.http.get(this.usersUrl + `/api-key/${code}`, {headers: this.headers})
       .map((result: AuthInfo) => {
-        console.log(result);
         this.totalBtc = result.total_btc;
         this.totalEth = result.total_eth;
         this.walletTypes = result.walletTypes;

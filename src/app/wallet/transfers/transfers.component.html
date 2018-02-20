@@ -40,7 +40,7 @@
 </div>
 <h3 *ngIf="error" class="error text-center">{{ error | translate }}</h3>
 <ng-template #transfersNotFound>
-    <h4 *ngIf="!step || step === 5 " id="no-transfers" class="text-center">{{'wallet.transfers-not-found' | translate
+    <h4 *ngIf="!step || step === 2 " id="no-transfers" class="text-center">{{'wallet.transfers-not-found' | translate
         }}!</h4>
-    <mat-spinner *ngIf="step && step !== 5 " style="margin: 50px auto;"></mat-spinner>
+    <mat-spinner *ngIf="step && step !== 2 " style="margin: 50px auto;"></mat-spinner>
 </ng-template>
