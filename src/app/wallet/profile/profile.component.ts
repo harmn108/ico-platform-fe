@@ -24,9 +24,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   readonly wallets = [
     {shortname: "BTC", name: "bitcoin", icon: "icon-bitcoin"},
     {shortname: "ETH", name: "ethereum", icon: "icon-etherium"},
-    {shortname: "BCH", name: "bitcoin cash", icon: "icon-bitcoin-cash"},
-    {shortname: "LTC", name: "litecoin", icon: "icon-litecoin"},
-    {shortname: "XMR", name: "monero", icon: "icon-monero"},
     {shortname: null, name: "other", icon: "icon-other"}
   ];
 
