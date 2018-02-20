@@ -13,8 +13,8 @@ import {ChartsModule} from 'ng2-charts';
 import {NotificationService} from './services/notification.service';
 import {ConfigService} from './services/config.service';
 import {ContentService} from './services/content.service';
-import {SocialService} from './services/social.service';
-import {FacebookService} from 'ngx-facebook';
+// import {SocialService} from './services/social.service';
+// import {FacebookService} from 'ngx-facebook';
 import {SharedModule} from './shared/shared.module';
 import {MatSnackBar} from '@angular/material';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
@@ -75,10 +75,9 @@ export function exportTranslateStaticLoader(http: HttpClient) {
     NotificationService,
     ConfigService,
     ContentService,
-    SocialService,
+    // SocialService,
     Broadcaster,
     WindowRefService,
-    FacebookService,
     PaymentService,
     ProfileGuard,
     AuthGuard,
@@ -88,7 +87,7 @@ export function exportTranslateStaticLoader(http: HttpClient) {
     MatSnackBar,
     HttpCacheService,
     ErrorService,
-    FacebookService,
+    // FacebookService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: CachingInterceptor,
