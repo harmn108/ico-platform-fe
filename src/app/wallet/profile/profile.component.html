@@ -1,0 +1,91 @@
+<ng-container *ngIf="userService.authToken">
+  <div class="main-grid container-fluid">
+    <div class="title mb-4">
+      <h3 class=" text-uppercase text-center">{{ 'home-page.ico-live' | translate}} </h3>
+    </div>
+  </div>
+  <div class="profile">
+    <div class="total-balance text-center mb-4">
+      <div class="main-grid container-fluid">
+        <h5 class="mb-0 pt-3 pb-3">{{'wallet.total-balance' | translate}}: {{walletTotalBalance}}
+          PBQ ({{userService.totalBtc || 0}} BTC / {{userService.totalEth || 0}} ETH</h5>
+      </div>
+    </div>
+    <div class="content main-grid container-fluid mb-3">
+      <div class="row text-center justify-content-center no-gutters">
+        <div class="text-center col-sm-6 col-12 p-0">
+                    <pre class="col-lg-10 mx-auto"><p class="text-center"
+                                                      *ngFor="let description of contributionDescriptionsData"
+                                                      [innerHTML]="description?.content"></p></pre>
+          <div *ngIf="userService.authToken && agreement"
+               class="row justify-content-between mb-3">
+            <div class="col-md-4 col-6 mb-4 wallet-list-item" *ngFor="let wallet of wallets; let i = index">
+              <button class="button button-empty text-uppercase font-weight-bold"
+                      [ngClass]="{'active': currentWallet == wallet.name}"
+                      (click)="setWallet(i)">
+                <i [ngClass]="wallet.icon"></i>
+                <div class="wallet-name">
+                  <span>{{wallet?.shortname || wallet.name}}</span>
+                  <small *ngIf="wallet?.shortname">{{wallet?.name}}</small>
+                </div>
+              </button>
+            </div>
+            <div class="col-md-4 col-6 mb-4 wallet-list-item">
+              <button class="button button-empty text-uppercase font-weight-bold"
+                      [ngClass]="{'active': currentWallet == 'other'}"
+                      (click)="setWallet(i)">
+                <i class="icon-other"></i>
+                <div class="wallet-name">
+                  <span>Other</span>
+                </div>
+              </button>
+            </div>
+          </div>
+          <h3 *ngIf="error" class="error">{{error | translate}}</h3>
+        </div>
+      </div>
+
+      <div *ngIf="showLoading">
+        <mat-spinner style="margin: 50px auto;"></mat-spinner>
+      </div>
+    </div>
+
+    <div [ngSwitch]="currentWallet">
+      <app-wallet *ngSwitchCase="'btc'" [walletName]="'btc'"></app-wallet>
+      <app-wallet *ngSwitchCase="'eth'" [walletName]="'eth'"></app-wallet>
+      <app-payment-systems *ngSwitchCase="'other'"></app-payment-systems>
+    </div>
+
+    <div class="inner-bonus pt-5 pb-5">
+      <div class="container-fluid main-grid text-center">
+        <app-bonus-program></app-bonus-program>
+      </div>
+    </div>
+
+    <app-calculator></app-calculator>
+
+    <div class="transfers pt-5 pb-5">
+      <div class="container-fluid main-grid">
+        <app-transfers
+          *ngIf="!showLoading && userService.authToken && (userService.agreement > 0)"></app-transfers>
+      </div>
+    </div>
+
+    <div class="referal pt-5 pb-5" *ngIf="configService.icoStage === configService.STAGE_ICO">
+      <div class="container-fluid main-grid text-center">
+        <h4 class="font-weight-bold text-uppercase mb-3">{{'wallet.referrals-header' | translate }}</h4>
+        <div class="content pt-3 pb-3 text-center">
+          <p class="mb-0">{{'wallet.referral-content' | translate | sprintf: [bonusFromReferrals,
+            referralUsersCount] }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="help pt-5 pb-5">
+      <div class="container-fluid main-grid text-center">
+        <p class="mb-0">{{'wallet.help-text' | translate }}<a target="_blank"
+                                                              href="https://publiq.network/en/contacts"><strong>{{'wallet.help-link'
+          | translate }}</strong></a></p>
+      </div>
+    </div>
+  </div>
+</ng-container>

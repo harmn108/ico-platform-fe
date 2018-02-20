@@ -1,0 +1,53 @@
+<header [ngClass]="headerClass">
+    <div class="main-grid container-fluid">
+        <div class="row align-items-center justify-content-between no-gutters">
+            <a (click)="redirect()" class="logo">
+                <!--<img src="../../../assets/img/white-logo.svg" class="white-logo" alt="">-->
+                YourLogo
+            </a>
+            <nav>
+                <div class="hamburger" [ngClass]="isActive" (click)="changeClasses()">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
+                <ul class="menu">
+                    <li class="pr-md-4 mr-md-4">
+                        <!--<a target="_blank" href="#"></a>-->{{ 'header.white-paper' | translate }}
+                    </li>
+                    <!--<li class="pr-md-4"-->
+                        <!--*ngIf="(configService.icoStage === configService.STAGE_PREICO)  && !userService.authToken">-->
+                        <!--<a routerLink="./pre-ico" (click)="changeClasses()">{{ 'header.pre-ico' | translate }}</a>-->
+                    <!--</li>-->
+                    <!--<ng-container>-->
+                        <li class="pr-md-4"><a (click)="checkWallet()">{{ 'header.wallet' | translate }}</a></li>
+                        <li class="pr-md-4"
+                            *ngIf="(configService.icoStage === configService.STAGE_ICO)">
+                            <a (click)="referral()">{{'header.referral' | translate}}</a>
+                        </li>
+                    <!--</ng-container>-->
+                    <li class="pr-md-4" *ngIf="userService.authToken"><a (click)="exit()">{{ 'header.exit' |
+                        translate}}</a></li>
+                    <li class="language-nav-container">
+                       <ul class="ml-md-4 font-weight-bold text-uppercase d-flex
+                        flex-md-row flex-column justify-content-between"
+                            [ngClass]="active" (clickOutside)="outsideClick()">
+                            <li>
+                                <span (click)="toggleDropdownMenu()">{{currentLanguage}}</span>
+                                <div class="drop-menu" *ngIf="dropdownMenu">
+                                    <ul>
+                                        <ng-container *ngFor="let language of languages; let i = index">
+                                            <li class="font-weight-normal"  *ngIf="language !== currentLanguage"
+                                                (click)="changeLanguage(i)">{{language}}
+                                            </li>
+                                        </ng-container>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>

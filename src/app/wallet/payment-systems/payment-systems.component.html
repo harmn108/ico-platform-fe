@@ -1,0 +1,23 @@
+<div class="payment-container">
+    <div class="row text-center justify-content-center no-gutters mb-4">
+        <div class="text-center col-xl-5 col-lg-8 p-0">
+            <p class="mb-3">
+                {{"payments.header" | translate}}
+            </p>
+        </div>
+    </div>
+
+    <ul id="page-toolbar" class="pscroll">
+        <li *ngFor="let ps of paymentSystems"
+            [ngClass]="{active: ps === currentPaymentSystem}"
+            (click)="setMethod(ps)"
+            class="text-uppercase">{{ps}}
+        </li>
+    </ul>
+
+    <div class="payment-body" class="col-10 offset-1">
+        <app-changelly [hidden]="currentPaymentSystem !== 'changelly'"></app-changelly>
+        <app-paxful [hidden]="currentPaymentSystem !== 'paxful'"></app-paxful>
+        <app-indacoin [hidden]="currentPaymentSystem !== 'indacoin'"></app-indacoin>
+    </div>
+</div>

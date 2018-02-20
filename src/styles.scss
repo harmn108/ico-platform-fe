@@ -2,12 +2,13 @@
 //@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import "assets/variable";
 @import "assets/style/external.css";
-//@import "assets/fonts/fonts.css";
+@import "assets/fonts/fonts.css";
 @import "assets/bootstrap-4/bootstrap.min.css";
 //@import "theme";
 @import url("https://fonts.googleapis.com/css?family=Material+Icons");
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,300");
 @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Open+Sans:300,400,600,700");
+@import "assets/css/swiper.min.css";
 
 * {
   box-sizing: border-box;

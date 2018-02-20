@@ -1,0 +1,84 @@
+@import "../../../assets/variable";
+
+.sale {
+  &.inner {
+    .first {
+      border-left: 2px solid #000;
+
+    }
+    .last {
+      border-right: 2px solid #000;
+    }
+    > .percent > div {
+      position: relative;
+      border-top: 2px solid #000;
+      border-bottom: 2px solid #000;
+      background: $primary;
+      color: #fff;
+      &:after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: #000;
+      }
+      &:last-of-type {
+        &:after {
+          display: none;
+        }
+      }
+      &.active {
+        background: #fff;
+        color: $primary;
+      }
+    }
+  }
+  .first {
+    border-radius: 20px 0 0 20px;
+    border-left: 2px solid #000;
+
+  }
+  .last {
+    border-radius: 0 20px 20px 0;
+    border-right: 2px solid #000;
+  }
+  > .percent > div {
+    position: relative;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    background: $primary;
+    color: #fff;
+
+    &:after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #000;
+    }
+    &:last-of-type {
+      &:after {
+        display: none;
+      }
+    }
+    &.active {
+      background: #fff;
+      color: $primary;
+    }
+  }
+}
+
+@media (max-width: 567px) {
+  .sale {
+    > .percent > div > div {
+      font-size: 12px;
+    }
+    .title {
+      font-size: 10px;
+    }
+  }
+}

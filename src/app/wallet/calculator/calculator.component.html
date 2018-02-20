@@ -1,0 +1,41 @@
+<div class="calculator pt-5 pb-5">
+    <div class="container-fluid main-grid text-center" *ngIf="currencyMap">
+        <h4 class="font-weight-bold text-uppercase mb-5">{{ 'calculator.header' | translate }}</h4>
+        <div *ngIf="currencies.length > 0 && bonusData" class="row justify-content-center mb-5">
+            <div class="col-md-8 row no-gutters">
+                <div class="col-sm-6 col-12 pl-4 pr-4 mb-3 mb-sm-0">
+                    <form novalidate [formGroup]="calculatorForm" class="example-form d-flex">
+                        <mat-form-field class="convert">
+                            <input formControlName="value" (keypress)="validate($event)"
+                                   matInput placeholder="{{'calculator.transfer' | translate }}"/>
+                            <mat-hint align="start">1 Token={{currencyMap.get(selectedCurrency)}} {{selectedCurrency}}
+                            </mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field class="select-crypto">
+                            <mat-select formControlName="currency">
+                                <mat-option *ngFor="let curr of currencies" [value]="curr">{{curr}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </form>
+                </div>
+                <div class="col-sm-6 col-12 pl-4 pr-4">
+                    <form class="example-form">
+                        <mat-form-field class="example-full-width">
+                            <input matInput disabled placeholder="{{'calculator.receive' | translate}}"
+                                   value="{{calculatedToken ? (calculatedToken | number) : ''}}"/>
+                            <span matSuffix>Token</span>
+                            <mat-hint align="start" *ngIf="bonusData?.bonus">{{'calculator.bonus-info' | translate |
+                                sprintf: [bonusData.bonus, bonusData.daysLeft.expirationDays, bonusData.daysLeft.expirationHours]}}
+                            </mat-hint>
+                        </mat-form-field>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <h5 *ngIf="calculatedToken && calculatedBonus">{{ 'calculator.result' | translate | sprintf: [calculatedToken |
+          number,
+          calculatedBonus | number] }}</h5>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="text-center mb-3">
+    <h4 class="font-weight-bold text-uppercase mb-4">{{'wallet.transaction-header' | translate}}</h4>
+    <h5 class="mb-3">{{'wallet.transaction-record' | translate }}</h5>
+</div>
+<div *ngIf="transactions.length ; else transfersNotFound">
+    <div class="t-head">
+        <ul class="d-flex justify-content-between font-weight-bold">
+            <li class="col-3 text-left">{{'wallet.transaction-id' | translate}}</li>
+            <li class="col-2">{{'wallet.timestamp' | translate}}</li>
+            <li class="col-2">{{'wallet.amount' | translate}}</li>
+            <li class="col-1">{{'wallet.rate' | translate}}</li>
+            <li class="col-1">{{'wallet.bonus' | translate}}</li>
+            <li class="col-1">{{'wallet.token' | translate}}</li>
+            <li class="col-1">{{'wallet.status' | translate}}</li>
+        </ul>
+    </div>
+    <div class="t-body" *ngFor="let transaction of transactions">
+        <ul class="d-flex justify-content-between align-items-center">
+            <li class="col-3 text-left" style="word-break: break-all;">
+                {{transaction.transactionId}}
+            </li>
+            <li class="col-2">{{transaction.transactionDate * 1000 | date:"dd/MM/yy HH:mm:ss"}}
+            </li>
+            <li class="col-2">{{transaction.transactionAmount | currency: {currency: transaction.key } }}
+            </li>
+            <li class="col-1">{{transaction.rate.rate}}</li>
+            <li class="col-1">
+                <span *ngIf="transaction.bonus > 0">{{transaction.bonus}}%</span>
+            </li>
+            <li class="col-1">{{transaction.tokenAmount}}</li>
+            <li class="col-1">
+                <img *ngIf="transaction.isValid; else invalidBlock" src="../../../assets/img/valid.svg"
+                     alt="">
+                <ng-template #invalidBlock>
+                    <img src="../../../assets/img/invalid.svg" alt="">
+                </ng-template>
+            </li>
+        </ul>
+    </div>
+</div>
+<h3 *ngIf="error" class="error text-center">{{ error | translate }}</h3>
+<ng-template #transfersNotFound>
+    <h4 *ngIf="!step || step === 2 " id="no-transfers" class="text-center">{{'wallet.transfers-not-found' | translate
+        }}!</h4>
+    <mat-spinner *ngIf="step && step !== 2 " style="margin: 50px auto;"></mat-spinner>
+</ng-template>

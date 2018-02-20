@@ -1,0 +1,22 @@
+<!--<h4 class="font-weight-normal mb-4">{{ 'confirm-dialog.header' | translate }}</h4>-->
+<div [ngClass]="{'confirm-tac': true, 'tac-hidden': !showTaC}" class="">
+    <app-terms-and-conditions></app-terms-and-conditions>
+</div>
+<span *ngIf="allowClose" (click)="closeDialog()" class="custom-close thick"></span>
+<form novalidate [formGroup]="termCondForm" (ngSubmit)="onNoClick()" *ngIf="showForm">
+
+    <div class="checkbox-block mb-4">
+        <span class="checkbox">
+            <input type="checkbox" id="box-1" formControlName="tac" required/>
+            <label for="box-1"></label>
+        </span>
+        <span>{{ 'confirm-dialog.pre-terms-and-conditions' | translate }}
+            <a style="font-weight: bold; text-decoration: underline"
+               (click)="toggleTac($event)">{{ 'confirm-dialog.terms-and-conditions' | translate }}</a>
+        </span>
+    </div>
+    <div *ngIf="warningMessage" class="warning mb-4 h6">{{'warning.terms-and-conditions' | translate}}</div>
+    <button type="submit" class="button button-fill text-uppercase font-weight-normal"
+            [ngClass]="buttonStyle" [disabled]="termCondForm.invalid">{{ 'confirm-dialog.confirm' | translate }}
+    </button>
+</form>

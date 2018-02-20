@@ -1,0 +1,39 @@
+.active {
+    padding-top: 2px;
+    border-bottom: 2px solid #3366FF;
+    color: #3366FF !important;
+}
+
+ol, ul {
+    width: 100%;
+    height: 48px;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 5;
+    list-style: none;
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+li {
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 27px;
+    text-transform: uppercase;
+    font-size: 18px;
+    //letter-spacing:2px;
+    font-weight:700;
+    cursor: pointer;
+    white-space: nowrap;
+    margin: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+
+.payment-body {
+    width: 100%;
+    margin-top: 20px;
+}

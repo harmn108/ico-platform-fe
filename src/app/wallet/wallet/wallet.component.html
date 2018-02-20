@@ -1,0 +1,20 @@
+<div *ngIf="wallet">
+    <div class="row text-center justify-content-center no-gutters mb-5">
+        <div class="text-center col-xl-8 col-lg-10 p-0">
+            <div class="">
+                <h5 class="mb-3">{{'wallet.address.' + walletName | translate}}</h5>
+                <div class="public-key mb-3 d-flex justify-content-between align-items-center">
+                    <div class="col key" #walletTarget>{{wallet.publicKey}}</div>
+                    <div class="col pt-2 pb-2 copy-key" (click)="isCopied(walletTarget)"><i class="icon-copy"></i></div>
+                </div>
+                <div class="qr"><img [src]="wallet.imageURL" alt=""></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 *ngIf="error" class="error text-center">{{error | translate}}</h3>
+
+<div *ngIf="!wallet && !error ">
+    <mat-spinner style="margin: 50px auto;"></mat-spinner>
+</div>

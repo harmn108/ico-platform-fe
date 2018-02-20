@@ -6,7 +6,7 @@ module.exports = {
     server: './server.js'
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.js', '.ts']
   },
   target: 'node',
    externals: [nodeExternals({

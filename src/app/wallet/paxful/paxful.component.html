@@ -1,0 +1,38 @@
+<div>
+    <div id="exchange-holder">
+        <!--form-->
+        <div class="row text-center justify-content-center no-gutters mb-5">
+            <div
+                class="form input-container d-flex mx-auto mx-md-0 row no-gutters justify-content-between align-items-center">
+
+                <p class="col-10 offset-1 mb-4 text-center mx-auto">{{'payments.paxful-click' | translate}}</p>
+
+                <div *ngIf="wallet" class="col key mb-4">
+                    <div style="overflow-x:hidden; width: 100%">{{wallet}}</div>
+                </div>
+                <div class="row text-center justify-content-center no-gutters paxful-form" style="width: 100%">
+                    <form novalidate [formGroup]="paxfulForm" (ngSubmit)="submit()" class="col-12 col-sm-9">
+                        <div
+                            class="form input-container-fs d-flex mx-auto mx-md-0 row no-gutters justify-content-between align-items-center centered">
+
+                            <input placeholder="{{'payments.your-contribution-amount' | translate}}"  name="amount" type="text" formControlName="amount"
+                                   required class="col-7 col-sm-8 pl-4 pr-4"
+                                   autocomplete="off"/>
+                            <input [ngClass]="{disabled: !isValidAmount, enabled: isValidAmount}" type="submit"
+                                   value="{{'payments.buttons.confirm' | translate}}"
+                                   [disabled]="paxfulForm?.invalid"
+                                   class="col-5 col-sm-4 pl-2 pr-2 font-weight-normal text-uppercase"/>
+                        </div>
+                    </form>
+                </div>
+
+                <p class="col-10 offset-1 mb-3 text-center mx-auto small-text">{{'payments.paxful-warning' | translate}}</p>
+
+                <div class="centered" style="font-size: 24px">
+                    <a href="{{paxfulUrl}}" target="_blank" class="text-uppercase button button-fill" [ngClass]="{'disabled': !paxfulUrl}">{{'payments.buttons.continue' | translate}}</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

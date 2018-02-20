@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="row no-gutters custom-progress">
+        <div class="col-3 d-flex align-items-center justify-content-center pre-ico">
+            <span>{{'progress.pre-amount' | translate}}</span>
+        </div>
+        <div class="col-9 d-flex no-gutters">
+            <!--if hard cap ancnel remove class .norm and add class .sep-->
+            <div [ngClass]="softCapClass">
+
+                <div class="progress-border"></div>
+                <span class="font-weight-bold"
+                      [ngStyle]="{'left': spanStyle.left, 'right':spanStyle.right}">
+                    {{'progress.current-amount' | translate | sprintf: (currentProgress.toFixed(0) | number)}}
+                </span>
+                <div [ngClass]="softProgressBar.css_class" [ngStyle]="{width: softProgressBar.width + '%'}"></div>
+            </div>
+            <div class="col-3 hard-cap">
+                <div class="progress-border"></div>
+                <div class="hard-cup-loader" [ngClass]="hardProgressBar.css_class"
+                     [ngStyle]="{'width': hardProgressBar.width + '%'}">
+                </div>
+                <span *ngIf="currentProgress > softCap"
+                      class="font-weight-bold">{{currentProgressPercentage}}%</span>
+            </div>
+        </div>
+    </div>
+    <div class="row no-gutters titles">
+        <div class="col-3 d-flex align-items-center justify-content-center">
+            <span class="text-uppercase">{{ 'progress.pre' | translate }}</span>
+        </div>
+        <div class="col-9 d-flex no-gutters text-center">
+            <div class="col-9"><span class="text-uppercase">{{ 'progress.soft' | translate }}</span></div>
+            <div class="col-3"><span class="text-uppercase">{{ 'progress.hard' | translate }}</span></div>
+        </div>
+    </div>
+</div>

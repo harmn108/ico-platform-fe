@@ -1,0 +1,14 @@
+.example-card {
+  width: 400px;
+}
+
+.uploaded-file, .uploaded-placeholder {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 200px;
+  display: inline-block;
+}
+
+.uploaded-placeholder {
+  color: gray;
+}

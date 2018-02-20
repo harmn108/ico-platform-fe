@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
-import {environment} from '../../environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {RouteSubject} from './route-subject';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Inject, Injectable, PLATFORM_ID} from "@angular/core";
+import {environment} from "../../environments/environment";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {RouteSubject} from "./route-subject";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {isPlatformBrowser} from "@angular/common";
 
 
 @Injectable()
@@ -13,9 +14,10 @@ export class ApiService {
   private totalTransfers: RouteSubject;
   private rates: RouteSubject;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              @Inject(PLATFORM_ID) private platformId: Object) {
     // define headers
-    const headers = new HttpHeaders({'Content-Type': 'application/json', 'x-local-cache': 'true'});
+    const headers = new HttpHeaders({"Content-Type": "application/json", "x-local-cache": "true"});
 
     // init subjects
     this.timeline = new RouteSubject(this.http, headers);
@@ -24,14 +26,23 @@ export class ApiService {
   }
 
   getRates(): BehaviorSubject<any> {
-    return this.rates.next(environment.backend_url + '/api/v1/pbq/rates');
+    if (isPlatformBrowser(this.platformId)) {
+
+      return this.rates.next(environment.ico_url + "/api/v1/token/rates");
+    }
   }
 
   getTimelines(lang): BehaviorSubject<any> {
-    return this.timeline.next(environment.backend_url + `/api/v1/general/get-timeline/${lang}`);
+    if (isPlatformBrowser(this.platformId)) {
+
+      return this.timeline.next(environment.ico_url + `/api/v1/general/get-timeline/${lang}`);
+    }
   }
 
   getTotalTransfers(): BehaviorSubject<any> {
-    return this.totalTransfers.next(`${environment.backend_url}/api/v1/general/get-total-transfers`);
+    if (isPlatformBrowser(this.platformId)) {
+
+      return this.totalTransfers.next(`${environment.ico_url}/api/v1/general/get-total-transfers`);
+    }
   }
 }

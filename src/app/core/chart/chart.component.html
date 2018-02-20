@@ -1,0 +1,10 @@
+<h5 class="text-uppercase mb-4">{{'chart.' + chart + '-header' | translate}}</h5>
+<div *ngIf="doughnutChartData?.length && doughnutChartLabels?.length">
+    <canvas baseChart
+            [data]="doughnutChartData"
+            [labels]="doughnutChartLabels"
+            [chartType]="doughnutChartType"
+            [colors]="doughnutChartColors"
+            [options]="doughnutChartOption">
+    </canvas>
+</div>

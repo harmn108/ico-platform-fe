@@ -1,0 +1,14 @@
+<div *ngIf="wallets">
+    <div id="exchange-holder" *ngIf="changlyUrl"  class="mt-5">
+        <iframe [hidden]="showLoading" #changlyIframe (load)="iframeOnLoadEvent(changlyIframe)" [src]="changlyUrl" width="600" height="500" class="changelly" scrolling="no"
+                style="overflow-y: hidden; border: none">
+            {{'wallet.exchange' | translate}}
+        </iframe>
+        <mat-spinner *ngIf="showLoading" style="margin: 50px auto;"></mat-spinner>
+
+        <!--<iframe src="https://changelly.com/widget/v1?auth=email&from=USD&to=BTC&merchant_id=e9d2f3b8d34b&address=1H4rRTjkFwtfBkSn6kztX2jm66tqKAKtix&amount=50&ref_id=e9d2f3b8d34b&color=00cf70" width="600" height="500" class="changelly" scrolling="no" style="overflow-y: hidden; border: none" > Can't load widget </iframe>-->
+    </div>
+</div>
+<div *ngIf="!wallets && !error">
+    <mat-spinner style="margin: 50px auto;"></mat-spinner>
+</div>

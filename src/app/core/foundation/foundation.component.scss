@@ -1,0 +1,31 @@
+@import "../../../assets/variable";
+
+.foundation{
+    padding: 100px 0;
+    background: #f7f7f7;
+
+    .f-title{
+        margin-top: 10px;
+        margin-bottom: 70px
+    }
+
+    .counter {
+        position: relative;
+        top: 16px;
+        font-weight: bold;
+    }
+
+    .short-width {
+        width: 90%
+    }
+}
+
+.transparent-circle {
+    background-color: rgba(204, 0, 102, 0);
+    border: 2px solid $primary;
+    height:60px;
+    width:60px;
+    -webkit-border-radius:75px;
+    -moz-border-radius:75px;
+    margin:auto;
+}

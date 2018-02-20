@@ -1,0 +1,43 @@
+<div class="contribute-bar" [@barStatus] *ngIf="shown">
+    <div class="main-grid row">
+        <div class="col-md-3 hidden-sm-down d-flex sale-starts-in align-items-center justify-content-center">
+            <span>{{'home-page.ico-end' | translate}}</span>
+        </div>
+        <div class="col-md-4 hidden-sm-down row time-left">
+            <div class="col-3 d-flex aligne-items-center justify-content-center">
+                <span>{{configService.days || 0}}</span>
+                <small>{{'countdown.days' | translate}}</small>
+            </div>
+            <div class="col-3 d-flex align-items-center justify-content-center">
+                <span>{{configService.hours || 0}}</span>
+                <small>{{'countdown.hours' | translate}}</small>
+            </div>
+            <div class="col-3 d-flex align-items-center justify-content-center">
+                <span>{{configService.minutes || 0}}</span>
+                <small>{{'countdown.minutes' | translate}}</small>
+            </div>
+            <div class="col-3 d-flex align-items-center justify-content-center">
+                <span>{{configService.seconds || 0}}</span>
+                <small>{{'countdown.seconds' | translate}}</small>
+            </div>
+        </div>
+        <div class="col-md-5 d-flex align-items-center">
+            <div class="col-6 text-center contribute-button-container">
+                <a (click)="goContributePage()" class="button button-fill text-uppercase font-weight-bold" tabindex="0">{{'countdown.contribute'
+                    | translate}}</a>
+            </div>
+            <div *ngIf="(currentBonus && (expirationDays || expirationHours));else bonusExpired" class="bonus-part col-6 text-center">
+                <h5 class="mb-0">{{'countdown.bonus-text' | translate | sprintf: currentBonus}}</h5>
+                <span class="mb-4">{{ 'countdown.bonus-expiration' | translate }}
+                    <span *ngIf="expirationDays > 0">{{'countdown.expiration-days' | translate | sprintf: expirationDays}}</span>
+                    <span *ngIf="expirationHours > 0">{{'countdown.expiration-hours' | translate | sprintf: expirationHours}}</span>
+                </span>
+            </div>
+            <ng-template #bonusExpired>
+                <div class="bonus-part col-6 text-center">
+                    <h5 class="mb-0">{{ 'countdown.bonus-expired' | translate }}</h5>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
