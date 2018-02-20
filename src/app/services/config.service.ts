@@ -10,7 +10,7 @@ import {isPlatformBrowser} from "@angular/common";
 @Injectable()
 export class ConfigService {
   private headers = new HttpHeaders({"Content-Type": "application/json"});
-  private readonly baseUrl = environment.ico_url + "/api/v1/general";
+  private readonly baseUrl = environment.ico_backend_url + "/api/v1/general";
   private configurations: Promise<any>;
 
   public icoDate = null;

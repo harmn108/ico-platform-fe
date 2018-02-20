@@ -8,7 +8,7 @@ import {isPlatformBrowser} from "@angular/common";
 @Injectable()
 export class ContentService {
 
-  private readonly baseUrl = environment.ico_url + "/api/v1/general";
+  private readonly baseUrl = environment.ico_backend_url + "/api/v1/general";
   public addHomeClassEvent$: EventEmitter<any> = new EventEmitter(true);
 
   lang = "";

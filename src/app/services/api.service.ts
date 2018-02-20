@@ -28,21 +28,21 @@ export class ApiService {
   getRates(): BehaviorSubject<any> {
     if (isPlatformBrowser(this.platformId)) {
 
-      return this.rates.next(environment.ico_url + "/api/v1/token/rates");
+      return this.rates.next(environment.ico_backend_url + "/api/v1/token/rates");
     }
   }
 
   getTimelines(lang): BehaviorSubject<any> {
     if (isPlatformBrowser(this.platformId)) {
 
-      return this.timeline.next(environment.ico_url + `/api/v1/general/get-timeline/${lang}`);
+      return this.timeline.next(environment.ico_backend_url + `/api/v1/general/get-timeline/${lang}`);
     }
   }
 
   getTotalTransfers(): BehaviorSubject<any> {
     if (isPlatformBrowser(this.platformId)) {
 
-      return this.totalTransfers.next(`${environment.ico_url}/api/v1/general/get-total-transfers`);
+      return this.totalTransfers.next(`${environment.ico_backend_url}/api/v1/general/get-total-transfers`);
     }
   }
 }
