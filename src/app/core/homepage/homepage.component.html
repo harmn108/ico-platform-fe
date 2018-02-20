@@ -33,7 +33,8 @@
                 <div class="row mb-5 pb-5">
                     <div class="col-sm-4 mb-sm-0 mb-4" *ngFor="let fact of facts;">
                         <div class="d-flex align-items-center mb-4">
-                            <img *ngIf="fact.fileName" src="{{filesUrl}}/{{fact.fileName}}" alt="" class="mr-4">
+                            <!--img *ngIf="fact.fileName" src="{{filesUrl}}/{{fact.fileName}}" alt="" class="mr-4"-->
+                            <i class="icon-checkmark mr-4"></i>
                             <h4 class="font-weight-bold text-uppercase">{{fact?.title}}</h4>
                         </div>
                         <pre><p [innerHTML]="fact?.content"></p></pre>
