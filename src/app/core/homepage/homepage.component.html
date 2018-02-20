@@ -40,13 +40,13 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <!--<app-bonus-program></app-bonus-program>-->
+                    <app-bonus-program></app-bonus-program>
                 </div>
             </div>
         </div>
 
         <div *ngIf="foundationContent">
-            <!--<app-foundation [foundationData]="foundationContent"></app-foundation>-->
+            <app-foundation [foundationData]="foundationContent"></app-foundation>
         </div>
 
         <div *ngIf="isBrowser">
@@ -54,21 +54,21 @@
                  class="allocation">
                 <div class="main-grid container-fluid text-center">
                     <div class="row">
-                        <!--<div class="col-md-6 mb-5 mb-md-0">-->
-                            <!--<app-chart *ngIf="tokenAllocationData" [chart]="'token'"-->
-                                       <!--[data]="tokenAllocationData"></app-chart>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-6 mb-5 mb-md-0">-->
-                            <!--<app-chart *ngIf="fundAllocationData" [chart]="'fund'"-->
-                                       <!--[data]="fundAllocationData"></app-chart>-->
-                        <!--</div>-->
+                        <div class="col-md-6 mb-5 mb-md-0">
+                            <app-chart *ngIf="tokenAllocationData" [chart]="'token'"
+                                       [data]="tokenAllocationData"></app-chart>
+                        </div>
+                        <div class="col-md-6 mb-5 mb-md-0">
+                            <app-chart *ngIf="fundAllocationData" [chart]="'fund'"
+                                       [data]="fundAllocationData"></app-chart>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <div *ngIf="isBrowser">
-            <!--<app-timeline *ngIf="timelineData" [timeline]="timelineData"></app-timeline>-->
+            <app-timeline *ngIf="timelineData" [timeline]="timelineData"></app-timeline>
         </div>
 
         <div class="ecosystem">

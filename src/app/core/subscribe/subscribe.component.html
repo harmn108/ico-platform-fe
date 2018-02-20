@@ -1,20 +1,21 @@
 <div class="subscribe row">
-  <small class="be-first-to-hear col-12 px-5" *ngIf="!beFirstHidden">Be first to hear about XXX updates.</small>
-  <form class="subscription-form col-12" novalidate>
+  <small class="be-first-to-hear col-12 px-5">{{'contribute.pre-ico' | translate }}</small>
+  <form class="subscription-form col-12" novalidate [formGroup]="emailForm"
+        (ngSubmit)="SubscribeEmailSubmit()">
     <div class="form email-input-container d-flex mx-auto mx-md-0 row no-gutters justify-content-between align-items-center">
-      <input id="subscription-email" class="col-7 col-sm-8 pl-4 pr-4" placeholder="Enter yout email address" type="email" required/>
-      <input [ngClass]="buttonStyle" type="submit" value="Subscribe" class="col-5 col-sm-4">
+      <input id="subscription-email" class="col-7 col-sm-8 pl-4 pr-4" placeholder="{{'subscribe.enter-your-email' | translate}}" formControlName="email" type="email" required/>
+      <input [ngClass]="buttonStyle" [disabled]="emailForm.invalid" type="submit" value="{{'subscribe.subscribe' | translate}}" class="col-5 col-sm-4">
       <!--input type="submit" value="{{'subscribe.subscribe' | translate}}" class="col-5 col-sm-4 pt-3 pb-3 pl-4 pr-4"-->
     </div>
     <small class="note"></small>
     <div class="warning  h6 pl-4 ">
-      <span class="mb-4 mt-3 d-block" *ngIf="formWarning">*We will not sell your email to anyone</span>
-      <span class="mb-4 mt-3 d-block" *ngIf="emailNotSetWarning">No email set</span>
+      <span class="mb-4 mt-3 d-block" *ngIf="formWarning">*{{ formWarning | translate }}</span>
+      <span class="mb-4 mt-3 d-block" *ngIf="emailNotSetWarning">{{ 'warning.email-not-set-warning' | translate }}</span>
     </div>
     <div *ngIf="answer" class="email-input-container thanks">
-      <small class="pl-4">Thank you!</small>
+      <small class="pl-4">{{'subscribe.thanks' | translate}}</small>
     </div>
-    <div *ngIf="errorMessage" class="error mb-4 h6">Error!</div>
+    <div *ngIf="errorMessage" class="error mb-4 h6">{{errorMessage | translate}}</div>
   </form>
-  <!--small style="font-size: 14px" class="col-12 px-5">We will not sell your email to anyone</small-->
+  <small style="font-size: 14px" class="col-12 px-5">{{'home-page.share-rent-sell' | translate }}</small>
 </div>

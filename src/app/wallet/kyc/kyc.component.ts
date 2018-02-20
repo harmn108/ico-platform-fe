@@ -62,10 +62,7 @@ export class KycComponent implements OnInit {
     formData.append("kyc[zip]", this.kycForm.get("zip").value);
 
     this.userService.submitKyc(formData).subscribe(
-      () => {
-        // this.userService.hasSubmittedKyc = true;
-        this.userService.goToWallet();
-      },
+      () => this.userService.goToWallet(),
       error => console.log(error.message));
   }
 
