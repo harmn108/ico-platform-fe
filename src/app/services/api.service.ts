@@ -24,7 +24,7 @@ export class ApiService {
   }
 
   getRates(): BehaviorSubject<any> {
-    return this.rates.next(environment.ico_url + '/api/v1/pbq/rates');
+    return this.rates.next(environment.ico_url + '/api/v1/token/rates');
   }
 
   getTimelines(lang): BehaviorSubject<any> {

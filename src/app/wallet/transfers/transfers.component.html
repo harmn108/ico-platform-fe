@@ -10,7 +10,7 @@
             <li class="col-2">{{'wallet.amount' | translate}}</li>
             <li class="col-1">{{'wallet.rate' | translate}}</li>
             <li class="col-1">{{'wallet.bonus' | translate}}</li>
-            <li class="col-1">{{'wallet.pbq' | translate}}</li>
+            <li class="col-1">{{'wallet.token' | translate}}</li>
             <li class="col-1">{{'wallet.status' | translate}}</li>
         </ul>
     </div>
@@ -27,7 +27,7 @@
             <li class="col-1">
                 <span *ngIf="transaction.bonus > 0">{{transaction.bonus}}%</span>
             </li>
-            <li class="col-1">{{transaction.pbqAmount}}</li>
+            <li class="col-1">{{transaction.tokenAmount}}</li>
             <li class="col-1">
                 <img *ngIf="transaction.isValid; else invalidBlock" src="../../../assets/img/valid.svg"
                      alt="">

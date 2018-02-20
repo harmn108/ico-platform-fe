@@ -32,7 +32,6 @@ export class TransfersComponent implements OnInit {
           data => {
             // for wallets step loop tracking
             this.step += 1;
-
             data.transactions.forEach(transaction => {
               if (wallet === WalletType.Bitcoin) {
                 transaction['key'] = wallet;

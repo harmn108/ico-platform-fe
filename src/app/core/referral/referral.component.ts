@@ -6,7 +6,7 @@ import {ErrorMessage} from '../../shared/error-messages/error-messages';
 import {ValidationService} from '../validator/validator.service';
 import {NotificationService} from '../../services/notification.service';
 import {environment} from '../../../environments/environment';
-import {SocialService} from '../../services/social.service';
+// import {SocialService} from '../../services/social.service';
 import {Router} from '@angular/router';
 import {ConfigService} from '../../services/config.service';
 import {Subscription} from 'rxjs/Subscription';
@@ -44,8 +44,7 @@ export class ReferralComponent implements OnInit, OnDestroy {
     private readonly icoBackendUrl = environment.ico_url + '?referral=';
     public isUserAuthenticated;
 
-    constructor(private socialService: SocialService,
-                private formBuilder: FormBuilder,
+    constructor(private formBuilder: FormBuilder,
                 private userService: UserService,
                 private notificationService: NotificationService,
                 private router: Router,
@@ -125,7 +124,7 @@ export class ReferralComponent implements OnInit, OnDestroy {
     }
 
     share(url: string) {
-        this.socialService.fbShare(url);
+        // this.socialService.fbShare(url);
     }
 
     checkWallet() {

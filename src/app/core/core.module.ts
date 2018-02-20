@@ -16,6 +16,7 @@ import {FoundationComponent} from './foundation/foundation.component';
 import {ChartComponent} from './chart/chart.component';
 import {ContributeBarComponent} from './contribute-bar/contribute-bar.component';
 import {ChartsModule} from 'ng2-charts';
+import {ProgressComponent} from './progress/progress.component';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import {ChartsModule} from 'ng2-charts';
     ContributeBarComponent,
     ReferralComponent,
     FoundationComponent,
+    ProgressComponent,
     ChartComponent
   ],
   exports: [

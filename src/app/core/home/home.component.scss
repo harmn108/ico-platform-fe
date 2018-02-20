@@ -10,10 +10,13 @@ section {
   background: url("../../../assets/images/bg.png") no-repeat fixed center;
   padding-top: 100px;
   .title,
+  /deep/ .countdown {
+    color: $primary!important;
+  }
   /deep/ .contribute,
   /deep/ .countdown {
+    color: #fff;
     position: relative;
-    color: $primary;
     z-index: 1;
     h1 {
       font-size: 26px;
@@ -108,12 +111,12 @@ section {
 }
 
 .info {
-  background: $primary;
-  color: #fff;
+  background: #fff;
+  color: $primary;
   font-size: 14px;
   padding: 100px 0;
   pre {
-    color: #fff;
+    color: $primary;
     font-size: 14px;
     font-family: "Open Sans", sans-serif;
     white-space: pre-wrap;
