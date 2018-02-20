@@ -8,7 +8,7 @@
                         <mat-form-field class="convert">
                             <input formControlName="value" (keypress)="validate($event)"
                                    matInput placeholder="{{'calculator.transfer' | translate }}"/>
-                            <mat-hint align="start">1 PBQ={{currencyMap.get(selectedCurrency)}} {{selectedCurrency}}
+                            <mat-hint align="start">1 Token={{currencyMap.get(selectedCurrency)}} {{selectedCurrency}}
                             </mat-hint>
                         </mat-form-field>
 
@@ -24,8 +24,8 @@
                     <form class="example-form">
                         <mat-form-field class="example-full-width">
                             <input matInput disabled placeholder="{{'calculator.receive' | translate}}"
-                                   value="{{calculatedPBQ ? (calculatedPBQ | number) : ''}}"/>
-                            <span matSuffix>PBQ</span>
+                                   value="{{calculatedToken ? (calculatedToken | number) : ''}}"/>
+                            <span matSuffix>Token</span>
                             <mat-hint align="start" *ngIf="bonusData?.bonus">{{'calculator.bonus-info' | translate |
                                 sprintf: [bonusData.bonus, bonusData.daysLeft.expirationDays, bonusData.daysLeft.expirationHours]}}
                             </mat-hint>
@@ -34,7 +34,8 @@
                 </div>
             </div>
         </div>
-        <h5 *ngIf="calculatedPBQ && calculatedBonus">{{ 'calculator.result' | translate | sprintf: [calculatedPBQ | number,
-            calculatedBonus | number] }}</h5>
+        <h5 *ngIf="calculatedToken && calculatedBonus">{{ 'calculator.result' | translate | sprintf: [calculatedToken |
+          number,
+          calculatedBonus | number] }}</h5>
     </div>
 </div>

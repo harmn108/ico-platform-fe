@@ -71,22 +71,22 @@ export class HomepageComponent implements OnInit {
     this.contentService.addHomeClassEvent$.subscribe(acc => {
       this.homeClassValue = acc;
     });
-    //
+
     // this.up();
-    // this.rates$ = this.api.getRates();
-    // this.contentService.getHomepageContent(this.languageService.language.value).subscribe(
-    //   data => {
-    //     if (data) {
-    //       this.facts = data.facts;
-    //       this.ecosystemData = data.ecosystem;
-    //       this.timelineData = data.timeline;
-    //       this.tokenAllocationData = data.token_allocation;
-    //       this.fundAllocationData = data.fund_allocation;
-    //       this.foundationContent = data.foundationData;
-    //     }
-    //   },
-    //   err => console.error(err)
-    // );
+    this.rates$ = this.api.getRates();
+    this.contentService.getHomepageContent(this.languageService.language.value).subscribe(
+      data => {
+        if (data) {
+          this.facts = data.facts;
+          this.ecosystemData = data.ecosystem;
+          this.timelineData = data.timeline;
+          this.tokenAllocationData = data.token_allocation;
+          this.fundAllocationData = data.fund_allocation;
+          this.foundationContent = data.foundationData;
+        }
+      },
+      err => console.error(err)
+    );
 
     this.broadcaster.on<any>('showHeader')
       .subscribe(data => {
