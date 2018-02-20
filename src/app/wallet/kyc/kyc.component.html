@@ -85,7 +85,7 @@
         </div>
       </div>
       <!--================-->
-      <button mat-raised-button color="primary" [disabled]="!kycForm.valid" (click)="submitKyc()">SAVE</button>
+      <button mat-raised-button color="primary" [disabled]="!kycForm.valid || loading" (click)="submitKyc()">SAVE</button>
 
     </form>
 
