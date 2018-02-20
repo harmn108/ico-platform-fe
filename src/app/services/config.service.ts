@@ -172,22 +172,24 @@ export class ConfigService {
   }
 
   currentBonus(): Observable<any> {
-    return new Observable(observer => {
-      this.icoInfo.subscribe(
-        icoInfo => {
-          if (icoInfo) {
-            let currentBonus = {};
-            const now = icoInfo['current_timestamp'];
-            icoInfo.bonuses.forEach((bonus) => {
-              if (((bonus.dateFrom) < now) && (now < (bonus.dateTo))) {
-                currentBonus = bonus;
-              }
-            });
-            observer.next(currentBonus);
+    if (isPlatformBrowser(this.platformId)) {
+      return new Observable(observer => {
+        this.icoInfo.subscribe(
+          icoInfo => {
+            if (icoInfo) {
+              let currentBonus = {};
+              const now = icoInfo["current_timestamp"];
+              icoInfo.bonuses.forEach((bonus) => {
+                if (((bonus.dateFrom) < now) && (now < (bonus.dateTo))) {
+                  currentBonus = bonus;
+                }
+              });
+              observer.next(currentBonus);
+            }
           }
-        }
-      );
-    });
+        );
+      });
+    }
 
   }
 
