@@ -18,6 +18,7 @@ export class UserService {
   private readonly headers = new HttpHeaders({"Content-Type": "application/json"});
   private readonly usersUrl = environment.ico_url + "/api/v1/user";
   authToken = null;
+  hasSubmittedKyc = null;
   referralKey = "";
   agreement: number;
   currentCurrency;

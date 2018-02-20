@@ -103,7 +103,9 @@ export class HeaderComponent implements OnInit {
   }
 
   checkWallet() {
-    if (this.userService.authToken) {
+    if (this.userService.authToken && !this.userService.hasSubmittedKyc) {
+      this.router.navigate([`${this.currentLanguage}/profile/kyc`]);
+    } else if (this.userService.authToken) {
       this.router.navigate([`${this.currentLanguage}/profile/wallet`]);
     } else {
       this.router.navigate([`${this.currentLanguage}/check-wallet`]);

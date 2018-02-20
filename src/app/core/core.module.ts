@@ -3,16 +3,9 @@ import {HomeComponent} from './home/home.component';
 import {SharedModule} from '../shared/shared.module';
 import {AppRoutingModule} from '../app-routing.module';
 import {CommonModule, DatePipe} from "@angular/common";
-import {AuthService} from '../auth/auth.service';
-import {KycComponent} from './kyc/kyc.component';
-import {
-  MatButtonModule, MatDialogModule, MatInputModule, MatProgressBarModule, MatProgressSpinnerModule,
-  MatSelectModule, MatCardModule, MatFormFieldModule, MatIconModule, MatDatepickerModule, MatNativeDateModule
-} from '@angular/material';
 import {CountdownComponent} from './countdown/countdown.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
-import {ControlMessagesComponent} from './control-message/control-message.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TimelineComponent} from './timeline/timeline.component';
 import {HomepageComponent} from './homepage/homepage.component';
@@ -32,28 +25,14 @@ import {ChartsModule} from 'ng2-charts';
     AppRoutingModule,
     CommonModule,
     ChartsModule,
-    MatCardModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatInputModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
     SwiperModule
   ],
   declarations: [
     HomeComponent,
-    KycComponent,
-    ControlMessagesComponent,
     HomeComponent,
     CountdownComponent,
-    KycComponent,
     TimelineComponent,
     HomepageComponent,
     ContributeComponent,
@@ -63,22 +42,9 @@ import {ChartsModule} from 'ng2-charts';
     ChartComponent
   ],
   exports: [
-    AppRoutingModule,
-    MatCardModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatInputModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    ControlMessagesComponent
+    AppRoutingModule
   ],
   providers: [
-    AuthService,
     DatePipe
   ]
 })

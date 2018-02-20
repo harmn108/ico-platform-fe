@@ -1,35 +1,35 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {UserService} from '../../services/user.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ErrorMessage} from '../../shared/error-messages/error-messages';
-import {LanguageService} from '../../services/lenguage.service';
-import {MatDialog} from '@angular/material';
-import {ContentService} from '../../services/content.service';
-import {ConfigService} from '../../services/config.service';
-import {ConfirmDialogComponent} from '../../shared/dialogs/confirm/confirm-dialog';
-import {WalletType} from '../../shared/local/wallet.enum';
-import {Subscription} from 'rxjs/Subscription';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {UserService} from "../../services/user.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {ErrorMessage} from "../../shared/error-messages/error-messages";
+import {LanguageService} from "../../services/lenguage.service";
+import {MatDialog} from "@angular/material";
+import {ContentService} from "../../services/content.service";
+import {ConfigService} from "../../services/config.service";
+import {ConfirmDialogComponent} from "../../shared/dialogs/confirm/confirm-dialog";
+import {WalletType} from "../../shared/local/wallet.enum";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: "app-profile",
+  templateUrl: "./profile.component.html",
+  styleUrls: ["./profile.component.scss"]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 
   public walletName = WalletType;
   showLoading: boolean = null;
   readonly wallets = [
-    {shortname: 'BTC', name: 'bitcoin', icon: 'icon-bitcoin'},
-    {shortname: 'ETH', name: 'ethereum', icon: 'icon-etherium'},
-    {shortname: 'BCH', name: 'bitcoin cash', icon: 'icon-bitcoin-cash'},
-    {shortname: 'LTC', name: 'litecoin', icon: 'icon-litecoin'},
-    {shortname: 'XMR', name: 'monero', icon: 'icon-monero'},
-    {shortname: null, name: 'other', icon: 'icon-other'}
+    {shortname: "BTC", name: "bitcoin", icon: "icon-bitcoin"},
+    {shortname: "ETH", name: "ethereum", icon: "icon-etherium"},
+    {shortname: "BCH", name: "bitcoin cash", icon: "icon-bitcoin-cash"},
+    {shortname: "LTC", name: "litecoin", icon: "icon-litecoin"},
+    {shortname: "XMR", name: "monero", icon: "icon-monero"},
+    {shortname: null, name: "other", icon: "icon-other"}
   ];
 
-  error = '';
-  language = '';
+  error = "";
+  language = "";
   agreement = 0;
   currentWallet;
   walletTotalBalance = 0;
@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
                 this.chooseWallet(params.code);
               }
             } else if (!this.userService.authToken) {
-              this.error = ErrorMessage['user_not_found'];
+              this.error = ErrorMessage["user_not_found"];
               this.router.navigate([`${this.language}/page-not-found`]);
             }
           });
@@ -75,12 +75,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.contentService.addHomeClassEvent$.emit('profile-body');
-    this.error = '';
+    this.contentService.addHomeClassEvent$.emit("profile-body");
+    this.error = "";
   }
 
   ngOnDestroy() {
-    this.contentService.addHomeClassEvent$.emit('');
+    this.contentService.addHomeClassEvent$.emit("");
     if (this.languageSub) {
       this.languageSub.unsubscribe();
     }
@@ -121,8 +121,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.showLoading = true;
     this.userService.getApiKey(code)
       .subscribe(walletinfo => {
+          // check if the user has submitted kyc.
+          // set it in the userservice so the user cannot navigate
+          // to his wallet if he hasnt submitted
+          this.userService.hasSubmittedKyc = walletinfo.hasSubmittedKyc;
           if (!walletinfo.hasSubmittedKyc) {
-            this.router.navigate([`${this.language}/kyc`]);
+            this.router.navigate([`${this.language}/profile/kyc`]);
             return;
           }
           this.agreement = walletinfo.agreement;
@@ -138,8 +142,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
         err => {
           console.error(err);
           const errMessage = JSON.parse(err._body).message;
-          if (errMessage === 'user_not_found') {
-            this.error = ErrorMessage['link_expired'];
+          if (errMessage === "user_not_found") {
+            this.error = ErrorMessage["link_expired"];
             this.router.navigate([`${this.language}/link-expired`]);
           }
 

@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {DatePipe} from "@angular/common";
-import {ValidationService} from "../validator/validator.service";
+import {ValidationService} from "../../core/validator/validator.service";
 import {UserService} from "../../services/user.service";
 
 @Component({
@@ -62,7 +62,10 @@ export class KycComponent implements OnInit {
     formData.append("kyc[zip]", this.kycForm.get("zip").value);
 
     this.userService.submitKyc(formData).subscribe(
-      () => this.userService.goToWallet(),
+      () => {
+        // this.userService.hasSubmittedKyc = true;
+        this.userService.goToWallet();
+      },
       error => console.log(error.message));
   }
 

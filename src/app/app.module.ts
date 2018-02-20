@@ -26,7 +26,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TutorialDialogComponent} from './shared/dialogs/tutorial/tutorial-dialog.component';
-import {HomepageComponent, WindowRefService} from './core/homepage/homepage.component';
+import {WindowRefService} from './core/homepage/homepage.component';
 import {ConfirmDialogComponent} from './shared/dialogs/confirm/confirm-dialog';
 import {ValidationService} from './core/validator/validator.service';
 import {Broadcaster} from './shared/broadcaster/broadcaster';
@@ -34,7 +34,6 @@ import {HttpCacheService} from './http-cache.service';
 import {CachingInterceptor} from './caching-interceptor.service';
 import {WalletModule} from './wallet/wallet.module';
 import {CoreModule} from './core/core.module';
-import {AuthModule} from './auth/auth.module';
 
 export function exportTranslateStaticLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -55,7 +54,6 @@ export function exportTranslateStaticLoader(http: HttpClient) {
     HttpClientModule,
     CoreModule,
     WalletModule,
-    AuthModule,
     MatCardModule,
     MatIconModule,
     TranslateModule.forRoot({

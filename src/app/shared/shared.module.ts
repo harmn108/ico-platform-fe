@@ -6,8 +6,8 @@ import {CurrencyPipe} from './pipes/currency.pipe';
 import {SprintfPipe} from './pipes/sprintf.pipe';
 import {
   MatButtonModule, MatDialogModule, MatInputModule, MatProgressBarModule, MatProgressSpinnerModule,
-  MatSnackBarModule, MatSelectModule
-} from '@angular/material';
+  MatSnackBarModule, MatSelectModule, MatCardModule, MatFormFieldModule, MatIconModule, MatDatepickerModule, MatNativeDateModule
+} from "@angular/material";
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -22,6 +22,7 @@ import {LinkExpiredComponent} from './link-expired/link-expired.component';
 import {ConfirmDialogComponent} from './dialogs/confirm/confirm-dialog';
 import {TutorialDialogComponent} from './dialogs/tutorial/tutorial-dialog.component';
 import {TermsAndConditionsComponent} from './terms-and-conditions/terms-and-conditions.component';
+import {ControlMessagesComponent} from "../core/control-message/control-message.component";
 
 export function exportTranslateStaticLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -39,6 +40,7 @@ export function exportTranslateStaticLoader(http: HttpClient) {
     ConfirmDialogComponent,
     TutorialDialogComponent,
     TermsAndConditionsComponent,
+    ControlMessagesComponent,
     // pipes
     CurrencyPipe,
     SprintfPipe
@@ -55,7 +57,13 @@ export function exportTranslateStaticLoader(http: HttpClient) {
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatCardModule,
     MatSnackBarModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+
     FlexLayoutModule,
     TranslateModule.forChild({
         loader: {
@@ -72,6 +80,7 @@ export function exportTranslateStaticLoader(http: HttpClient) {
     FooterComponent,
     SubscribeComponent,
     BonusProgramComponent,
+    ControlMessagesComponent,
     // pipes
     CurrencyPipe,
     SprintfPipe,
@@ -85,7 +94,12 @@ export function exportTranslateStaticLoader(http: HttpClient) {
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatCardModule,
     MatSnackBarModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     FlexLayoutModule,
     HttpClientModule
   ],
