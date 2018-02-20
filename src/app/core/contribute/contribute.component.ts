@@ -99,7 +99,7 @@ export class ContributeComponent implements OnInit, OnDestroy {
                 this.formSubmited = false;
             },
             err => {
-                console.log(err);
+                console.log('shift', err);
                 this.formSubmited = false;
                 this.emailForm.reset();
                 if (err.status === 400) {

@@ -34,6 +34,7 @@ import {HttpCacheService} from './http-cache.service';
 import {CachingInterceptor} from './caching-interceptor.service';
 import {WalletModule} from './wallet/wallet.module';
 import {CoreModule} from './core/core.module';
+import {ErrorService} from './services/error.service';
 
 export function exportTranslateStaticLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -86,6 +87,7 @@ export function exportTranslateStaticLoader(http: HttpClient) {
     HttpClient,
     MatSnackBar,
     HttpCacheService,
+    ErrorService,
     FacebookService,
     {
       provide: HTTP_INTERCEPTORS,

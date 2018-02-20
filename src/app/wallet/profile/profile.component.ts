@@ -9,6 +9,8 @@ import {ConfigService} from "../../services/config.service";
 import {ConfirmDialogComponent} from "../../shared/dialogs/confirm/confirm-dialog";
 import {WalletType} from "../../shared/local/wallet.enum";
 import {Subscription} from "rxjs/Subscription";
+import {NotificationService} from '../../services/notification.service';
+import {ErrorService} from '../../services/error.service';
 
 @Component({
   selector: "app-profile",
@@ -46,7 +48,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
               public dialog: MatDialog,
               private contentService: ContentService,
               public configService: ConfigService,
-              public languageService: LanguageService) {
+              public languageService: LanguageService,
+              private notificationService: NotificationService,
+              private errorService: ErrorService) {
   }
 
   ngOnInit() {
@@ -125,10 +129,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
           // set it in the userservice so the user cannot navigate
           // to his wallet if he hasnt submitted
           this.userService.hasSubmittedKyc = walletinfo.hasSubmittedKyc;
-          if (!walletinfo.hasSubmittedKyc) {
-            this.router.navigate([`${this.language}/profile/kyc`]);
-            return;
-          }
           this.agreement = walletinfo.agreement;
           this.walletTotalBalance = walletinfo.balance;
           this.bitcoinBalance = walletinfo.balance_bitcoin || 0;
@@ -137,12 +137,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
           if (!this.agreement) {
             this.openDialog();
           }
+          if (!walletinfo.hasSubmittedKyc) {
+            this.router.navigate([`${this.language}/profile/kyc`]);
+            return;
+          }
           this.getReferralData();
         },
         err => {
           console.error(err);
-          const errMessage = JSON.parse(err._body).message;
-          if (errMessage === "user_not_found") {
+          this.notificationService.error(this.errorService.getError(err));
+          // const errMessage = JSON.parse(err._body).message;
+          if (err === "user_not_found") {
             this.error = ErrorMessage["link_expired"];
             this.router.navigate([`${this.language}/link-expired`]);
           }

@@ -143,7 +143,7 @@ export class UserService {
       error._body = "{\"message\": \"user_not_found\"}";
       return Observable.throw(error);
     }
-    return Observable.throw(error.message || error);
+    return Observable.throw(error.error.message || error.message || error);
   }
 
 }
