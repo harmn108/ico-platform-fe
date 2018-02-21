@@ -13,7 +13,7 @@ import {isPlatformBrowser} from '@angular/common';
 })
 export class HeaderComponent implements OnInit {
 
-  readonly languages = ['en', 'ru', 'cn', 'jp', 'kr', 'fr', 'es', 'de'];
+  readonly languages = ['en', 'jp'];
   currentLanguage = this.languages[0];
   currentpath;
   dropdownMenu = false;

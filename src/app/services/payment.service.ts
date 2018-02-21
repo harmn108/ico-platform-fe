@@ -15,7 +15,7 @@ export class PaymentService {
   getPaxFulBtcRate(): Observable<any> {
     if (isPlatformBrowser(this.platformId)) {
 
-      return this.http.get(`${environment.ico_url}/api/v1/paxful/get-btc-rate`)
+      return this.http.get(`${environment.ico_backend_url}/api/v1/paxful/get-btc-rate`)
         .map(res => {
           if (!res.hasOwnProperty("price") || !res.hasOwnProperty("currency")) {
             Observable.throw(new Error("Invalid response"));
@@ -50,7 +50,7 @@ export class PaymentService {
 
       const headers = new HttpHeaders().set("X-AUTH-TOKEN", this.userService.authToken);
       return this.http.post(
-        `${environment.ico_url}/api/v1/paxful/get-payment-link`,
+        `${environment.ico_backend_url}/api/v1/paxful/get-payment-link`,
         body, {headers: headers}
       );
     }

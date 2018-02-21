@@ -127,6 +127,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           // set it in the userservice so the user cannot navigate
           // to his wallet if he hasnt submitted
           this.userService.hasSubmittedKyc = walletinfo.hasSubmittedKyc;
+          this.userService.isVerified = walletinfo.verified;
           this.agreement = walletinfo.agreement;
           this.walletTotalBalance = walletinfo.balance;
           this.bitcoinBalance = walletinfo.balance_bitcoin || 0;
@@ -148,6 +149,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
           if (err === "user_not_found") {
             this.error = ErrorMessage["link_expired"];
             this.router.navigate([`${this.language}/link-expired`]);
+          } else if (err === 'account_rejected') {
+            this.error = ErrorMessage["account_rejected"];
           }
 
         },

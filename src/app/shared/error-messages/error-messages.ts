@@ -6,5 +6,6 @@ export const ErrorMessage = {
     user_not_found: 'error.user-not-found',
     link_expired: 'error.link-expired',
     ico_not_started: 'error.ico-not-started',
-    no_user: 'error.no-user'
+    no_user: 'error.no-user',
+    account_rejected: 'error.no-account_rejected'
 };

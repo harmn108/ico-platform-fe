@@ -17,9 +17,10 @@ import {isPlatformBrowser} from "@angular/common";
 export class UserService {
 
   private readonly headers = new HttpHeaders({"Content-Type": "application/json"});
-  private readonly usersUrl = environment.ico_url + "/api/v1/user";
+  private readonly usersUrl = environment.ico_backend_url + "/api/v1/user";
   authToken = null;
   hasSubmittedKyc = null;
+  isVerified = null;
   referralKey = "";
   agreement: number;
   currentCurrency;
@@ -47,7 +48,7 @@ export class UserService {
 
   referralEmailSubmit(email: string, lang: string) {
     if (isPlatformBrowser(this.platformId)) {
-      return this.http.post(environment.ico_url + "/api/v1/user/send-referral-link", {
+      return this.http.post(environment.ico_backend_url + "/api/v1/user/send-referral-link", {
         email,
         lang
       }, {headers: this.headers})
@@ -59,14 +60,14 @@ export class UserService {
     const tokenHeader = new HttpHeaders({"X-AUTH-TOKEN": this.authToken});
 
     if (isPlatformBrowser(this.platformId)) {
-      return this.http.get(environment.ico_url + "/api/v1/user/get-referral-info", {headers: tokenHeader})
+      return this.http.get(environment.ico_backend_url + "/api/v1/user/get-referral-info", {headers: tokenHeader})
         .catch(err => this.handleError(err));
     }
   }
 
   subscribeEmailSubmit(email: string, lang: string) {
     if (isPlatformBrowser(this.platformId)) {
-      return this.http.post(environment.ico_url + "/api/v1/subscriber/add", {
+      return this.http.post(environment.ico_backend_url + "/api/v1/subscriber/add", {
         email,
         lang
       }, {headers: this.headers})
@@ -109,7 +110,7 @@ export class UserService {
         return this.http.get(this.usersUrl + `/get-wallet-data/${wallet}`, {headers: tokenHeader})
           .map((result: Wallet) => {
 
-            result.imageURL = environment.ico_url + "/" + result.imageURL;
+            result.imageURL = environment.ico_backend_url + "/" + result.imageURL;
             result.wallet = wallet;
 
             this[wallet].next(result);

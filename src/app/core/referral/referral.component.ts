@@ -41,7 +41,7 @@ export class ReferralComponent implements OnInit, OnDestroy {
     bonusInfo = [];
     public languageSub: Subscription;
 
-    private readonly icoBackendUrl = environment.ico_url + '?referral=';
+    private readonly icoBackendUrl = environment.ico_frontend_url + '?referral=';
     public isUserAuthenticated;
 
     constructor(private formBuilder: FormBuilder,

@@ -41,7 +41,7 @@ export class HomepageComponent implements OnInit {
   public tokenAllocationData;
   public fundAllocationData;
   public foundationContent;
-  protected readonly filesUrl = environment.ico_url + '/uploads/files';
+  protected readonly filesUrl = environment.ico_backend_url + '/uploads/files';
   public homeClassValue = '';
 
   constructor(private router: Router,

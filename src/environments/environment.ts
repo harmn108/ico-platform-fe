@@ -5,11 +5,12 @@
 
 
 import {
-  BACKEND_URL
-} from './parameters';
+  BACKEND_URL, FRONTEND_URL
+} from "./parameters";
 
 export const environment = {
   production: false,
-  ico_url: BACKEND_URL,
+  ico_backend_url: BACKEND_URL,
+  ico_frontend_url: FRONTEND_URL,
   fbapi: ''
 };

@@ -8,7 +8,7 @@
     <div class="total-balance text-center mb-4">
       <div class="main-grid container-fluid">
         <h5 class="mb-0 pt-3 pb-3">{{'wallet.total-balance' | translate}}: {{walletTotalBalance}}
-          PBQ ({{userService.totalBtc || 0}} BTC / {{userService.totalEth || 0}} ETH</h5>
+          Token ({{userService.totalBtc || 0}} BTC / {{userService.totalEth || 0}} ETH)</h5>
       </div>
     </div>
     <div class="content main-grid container-fluid mb-3">
@@ -17,7 +17,7 @@
                     <pre class="col-lg-10 mx-auto"><p class="text-center"
                                                       *ngFor="let description of contributionDescriptionsData"
                                                       [innerHTML]="description?.content"></p></pre>
-          <div *ngIf="userService.authToken && agreement"
+          <div *ngIf="userService.authToken && agreement && userService.isVerified"
                class="row justify-content-between mb-3">
             <div class="col-md-4 col-6 mb-4 wallet-list-item" *ngFor="let wallet of wallets; let i = index">
               <button class="button button-empty text-uppercase font-weight-bold"
@@ -27,16 +27,6 @@
                 <div class="wallet-name">
                   <span>{{wallet?.shortname || wallet.name}}</span>
                   <small *ngIf="wallet?.shortname">{{wallet?.name}}</small>
-                </div>
-              </button>
-            </div>
-            <div class="col-md-4 col-6 mb-4 wallet-list-item">
-              <button class="button button-empty text-uppercase font-weight-bold"
-                      [ngClass]="{'active': currentWallet == 'other'}"
-                      (click)="setWallet(i)">
-                <i class="icon-other"></i>
-                <div class="wallet-name">
-                  <span>Other</span>
                 </div>
               </button>
             </div>
