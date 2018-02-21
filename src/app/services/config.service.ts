@@ -1,16 +1,16 @@
-import {Injectable, PLATFORM_ID, Inject} from '@angular/core';
-import {environment} from '../../environments/environment';
-import 'rxjs/add/operator/toPromise';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/interval';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {isPlatformBrowser} from '@angular/common';
+import {Injectable, PLATFORM_ID, Inject} from "@angular/core";
+import {environment} from "../../environments/environment";
+import "rxjs/add/operator/toPromise";
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/observable/interval";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {isPlatformBrowser} from "@angular/common";
 
 @Injectable()
 export class ConfigService {
-  private headers = new HttpHeaders({'Content-Type': 'application/json'});
-  private readonly baseUrl = environment.ico_url + '/api/v1/general';
+  private headers = new HttpHeaders({"Content-Type": "application/json"});
+  private readonly baseUrl = environment.ico_url + "/api/v1/general";
   private configurations: Promise<any>;
 
   public icoDate = null;
@@ -50,10 +50,10 @@ export class ConfigService {
         (this.countdownOn = true);
       }
       if (this.icoStage === this.STAGE_ICO) {
-        this.diff.next(Math.floor(((data['ico_end_countdown'] -= 1 ))));
+        this.diff.next(Math.floor(((data["ico_end_countdown"] -= 1))));
       }
       if (this.icoStage === this.STAGE_PREICO) {
-        this.diff.next(Math.floor(((data['ico_countdown'] -= 1))));
+        this.diff.next(Math.floor(((data["ico_countdown"] -= 1))));
       }
 
       return this.diff.value;
@@ -62,8 +62,8 @@ export class ConfigService {
         if (time === 0) {
           if (this.icoStage === this.STAGE_PREICO) {
             this.icoStage = this.STAGE_ICO;
-            if (data['ico_end_date_timestamp'] - data['current_timestamp'] > 0) {
-              this.icoDate = new Date(data['ico_end_date']);
+            if (data["ico_end_date_timestamp"] - data["current_timestamp"] > 0) {
+              this.icoDate = new Date(data["ico_end_date"]);
             }
           } else {
             this.icoStage = this.STAGE_EXPIRED;
@@ -87,13 +87,13 @@ export class ConfigService {
   getIcoDate(): Observable<any> {
     if (isPlatformBrowser(this.platformId)) {
       if (!this.icoDate && !this.$icoInfo) {
-        return this.$icoInfo = this.http.get(this.baseUrl + '/get-configs', {headers: this.headers})
+        return this.$icoInfo = this.http.get(this.baseUrl + "/get-configs", {headers: this.headers})
           .map(data => {
             this.icoInfo.next(data);
             this.createCountDown(data);
-            const preIcoStart = data['ico_start_date_timestamp'];
-            const icoStart = data['ico_end_date_timestamp'];
-            const dateNow = data['current_timestamp'];
+            const preIcoStart = data["ico_start_date_timestamp"];
+            const icoStart = data["ico_end_date_timestamp"];
+            const dateNow = data["current_timestamp"];
             if (((preIcoStart - dateNow) > 0)) {
               if (!this.icoDate) {
                 this.icoDate = preIcoStart;
@@ -118,14 +118,17 @@ export class ConfigService {
   }
 
   private init() {
-    if (!this.configurations) {
-      this.configurations = this.http.get(this.baseUrl + '/get-configs', {headers: this.headers})
-        .toPromise()
-        .then(response => {
-          this.icoInfo.next(response);
-          return this.icoInfo.value;
-        })
-        .catch(ConfigService.handleError);
+    if (isPlatformBrowser(this.platformId)) {
+
+      if (!this.configurations) {
+        this.configurations = this.http.get(this.baseUrl + "/get-configs", {headers: this.headers})
+          .toPromise()
+          .then(response => {
+            this.icoInfo.next(response);
+            return this.icoInfo.value;
+          })
+          .catch(ConfigService.handleError);
+      }
     }
   }
 
@@ -153,7 +156,7 @@ export class ConfigService {
     this.dhms.next(vals);
   }
 
-  public get(key = ''): Promise<any> {
+  public get(key = ""): Promise<any> {
     this.init();
 
     return this.configurations
@@ -162,7 +165,7 @@ export class ConfigService {
           if (data[key]) {
             return data[key];
           } else {
-            ConfigService.handleError('key not found');
+            ConfigService.handleError("key not found");
           }
         } else {
           return data;
@@ -172,28 +175,30 @@ export class ConfigService {
   }
 
   currentBonus(): Observable<any> {
-    return new Observable(observer => {
-      this.icoInfo.subscribe(
-        icoInfo => {
-          if (icoInfo) {
-            let currentBonus = {};
-            const now = icoInfo['current_timestamp'];
-            icoInfo.bonuses.forEach((bonus) => {
-              if (((bonus.dateFrom) < now) && (now < (bonus.dateTo))) {
-                currentBonus = bonus;
-              }
-            });
-            observer.next(currentBonus);
+    if (isPlatformBrowser(this.platformId)) {
+      return new Observable(observer => {
+        this.icoInfo.subscribe(
+          icoInfo => {
+            if (icoInfo) {
+              let currentBonus = {};
+              const now = icoInfo["current_timestamp"];
+              icoInfo.bonuses.forEach((bonus) => {
+                if (((bonus.dateFrom) < now) && (now < (bonus.dateTo))) {
+                  currentBonus = bonus;
+                }
+              });
+              observer.next(currentBonus);
+            }
           }
-        }
-      );
-    });
+        );
+      });
+    }
 
   }
 
   private handleErrorObs(error: any): Observable<any> {
     if (error.status === 404) {
-      error._body = '{"message" : "user_not_found"}';
+      error._body = "{\"message\" : \"user_not_found\"}";
       return Observable.throw(error);
     }
     return Observable.throw(error.error.message || error.error || error);

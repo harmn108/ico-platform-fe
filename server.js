@@ -55,6 +55,7 @@ app.engine('html', ngUniversal.ngExpressEngine({
 app.set('view engine', 'html');
 app.set('views', 'dist');
 
+app.get('*', angularRouter);
 
 if (params.use_ssl) {
   const credentials = {

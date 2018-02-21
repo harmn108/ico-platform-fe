@@ -25,7 +25,7 @@ import {TermsAndConditionsComponent} from './terms-and-conditions/terms-and-cond
 import {ControlMessagesComponent} from "../core/control-message/control-message.component";
 
 export function exportTranslateStaticLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
 }
 
 @NgModule({
