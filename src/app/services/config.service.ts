@@ -91,12 +91,12 @@ export class ConfigService {
           .map(data => {
             this.icoInfo.next(data);
             this.createCountDown(data);
-            const preIcoStart = data["ico_start_date_timestamp"];
+            const preIcoEnd = data["ico_start_date_timestamp"];
             const icoStart = data["ico_end_date_timestamp"];
             const dateNow = data["current_timestamp"];
-            if (((preIcoStart - dateNow) > 0)) {
+            if (((preIcoEnd - dateNow) > 0)) {
               if (!this.icoDate) {
-                this.icoDate = preIcoStart;
+                this.icoDate = preIcoEnd;
               }
               this.icoStage = this.STAGE_PREICO;
             } else if ((icoStart - dateNow) > 0) {

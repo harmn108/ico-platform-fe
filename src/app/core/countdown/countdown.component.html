@@ -4,7 +4,10 @@
     <!--*ngIf="(configService.icoStage === configService.STAGE_PREICO)  && configService.icoDate">-->
     <!--{{ 'home-page.pre-ico' | translate}}</h1>-->
     <div class="text-center mb-5 mt-5 mx-auto countdown">
-      <h1 class="text-uppercase text-center">Token sale starts in</h1>
+      <h1 *ngIf="configService.icoStage === configService.STAGE_PREICO" class="text-uppercase text-center">
+        Token sale starts in</h1>
+      <h1 *ngIf="configService.icoStage === configService.STAGE_ICO" class="text-uppercase text-center">
+        Token sale ends in</h1>
       <!--div class="text-center ico-end">ICO ENDS</div-->
       <div class="row justify-content-center no-gutters">
         <div class="col-12 mt-4">
@@ -81,8 +84,13 @@
       <br>
       <h5 class="col-12 text-uppercase text-center ico-live">By invitation only</h5>
     </div-->
-    <app-subscribe></app-subscribe>
-
+    <app-subscribe *ngIf="configService.icoStage === configService.STAGE_PREICO"></app-subscribe>
+    <div class="text-center">
+      <button *ngIf="configService.icoStage === configService.STAGE_ICO"
+              class="button button-fill text-uppercase font-weight-bold" routerLink="./contribute">
+        {{ 'countdown.contribute' | translate }}
+      </button>
+    </div>
     <!--div class="main-grid container-fluid">
       <app-progress></app-progress>
     </div-->
