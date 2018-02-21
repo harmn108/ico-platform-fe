@@ -19,9 +19,9 @@ export class HeaderComponent implements OnInit {
   dropdownMenu = false;
   active = '';
   isActive = '';
-  public headerClass = ['hide'];
+  public headerClass = ['hide', 'dark'];
 
-  @HostListener('window:scroll', ['$event'])
+  /*@HostListener('window:scroll', ['$event'])
   onScroll(event) {
     if (isPlatformBrowser(this.platformId)) {
       if (60 < (document.documentElement.scrollTop || document.body.scrollTop) &&
@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
         this.isActive = '';
       }
     }
-  }
+  }*/
 
   constructor(private router: Router,
               public userService: UserService,
