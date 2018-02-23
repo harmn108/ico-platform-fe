@@ -19,8 +19,12 @@ git clone git@github.com:PUBLIQNetwork/ico-platform-fe.git ico-platform-fe
 cd ico-platform-fe
 npm install
 ```
-> Run `npm run init-params` for generating configuration files. It will create configuration file *service.parameters.js*. It contains API url which **must be updated with correct URL**. 
-
+> Run the following command to generate configuration files. It will create configuration files: 
+*server.parameters.js* and *src/environements/parameters.ts*. The first one contains urls which **must be updated with your URLs**.
+The second one contains server-side-rendering parameters. 
+```
+npm run init-params
+```
 ## Run Project
 
 > build Project  `npm start` or `npm run server` if is building
