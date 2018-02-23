@@ -127,6 +127,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           // set it in the userservice so the user cannot navigate
           // to his wallet if he hasnt submitted
           this.userService.hasSubmittedKyc = walletinfo.hasSubmittedKyc;
+          console.log('hsk', walletinfo.hasSubmittedKyc);
           this.userService.isVerified = walletinfo.verified;
           this.agreement = walletinfo.agreement;
           this.walletTotalBalance = walletinfo.balance;

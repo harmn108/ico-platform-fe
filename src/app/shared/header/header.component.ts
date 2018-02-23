@@ -103,6 +103,7 @@ export class HeaderComponent implements OnInit {
   }
 
   checkWallet() {
+    console.log('aaa: ' + this.userService.authToken, 'bbb: ' + this.userService.hasSubmittedKyc);
     if (this.userService.authToken && !this.userService.hasSubmittedKyc) {
       this.router.navigate([`${this.currentLanguage}/profile/kyc`]);
     } else if (this.userService.authToken) {
@@ -114,6 +115,10 @@ export class HeaderComponent implements OnInit {
   }
 
   referral() {
+    if (!this.userService.hasSubmittedKyc) {
+      this.router.navigate([`${this.currentLanguage}/profile/kyc`]);
+      return;
+    }
     this.router.navigate([`${this.currentLanguage}/referral`]);
     this.changeClasses();
   }
