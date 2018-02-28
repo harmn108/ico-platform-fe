@@ -1,12 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "arc-work-front"
+    "name": "ico-platform-fe"
   },
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "dist/browser",
       "assets": [
         "assets",
         "favicon.ico"
@@ -33,9 +33,10 @@
       "name": "arc-work",
       "platform": "server",
       "root": "src",
-      "outDir": "dist-server",
-      "main": "main-server.ts",
+      "outDir": "dist/server",
       "tsconfig": "tsconfig.server.json",
+      "index": "index.html",
+      "main": "main.server.ts",
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

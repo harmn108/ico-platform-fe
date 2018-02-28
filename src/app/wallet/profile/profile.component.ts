@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     {shortname: "btc", name: "bitcoin", icon: "icon-bitcoin"},
     {shortname: "eth", name: "etherium", icon: "icon-etherium"}
   ];
+  icoInfoSubscription: Subscription;
 
   error = "";
   language = "";
@@ -55,7 +56,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.agreement = this.userService.agreement;
     });
 
-    this.configService.getIcoDate().subscribe(
+    this.configService.getIcoDate();
+    this.icoInfoSubscription = this.configService.icoInfo.subscribe(
       data => {
         this.walletTotalBalance = this.userService.currentBalance;
         if (!this.userService.profileHashParams) {

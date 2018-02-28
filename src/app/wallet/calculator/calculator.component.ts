@@ -1,14 +1,15 @@
-import { Component, isDevMode, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ConfigService } from '../../services/config.service';
-import { ApiService } from '../../services/api.service';
+import {Component, isDevMode, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {ConfigService} from '../../services/config.service';
+import {ApiService} from '../../services/api.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.scss']
 })
-export class CalculatorComponent implements OnInit {
+export class CalculatorComponent implements OnInit, OnDestroy {
 
   public currencyMap: Map<string, number>;
   public currencies = [];
@@ -17,6 +18,7 @@ export class CalculatorComponent implements OnInit {
   public calculatedToken: any;
   public calculatorForm: FormGroup;
   public selectedCurrency = '';
+  public icoInfoSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
               private configService: ConfigService,
@@ -36,7 +38,8 @@ export class CalculatorComponent implements OnInit {
         this.bonusData = {};
 
         if (this.configService.icoStage === this.configService.STAGE_PREICO) {
-          this.configService.getIcoDate().subscribe(config => {
+          this.configService.getIcoDate();
+          this.icoInfoSubscription = this.configService.icoInfo.subscribe(config => {
             this.bonusData.bonus = config.pre_ico_bonus;
             this.bonusData.daysLeft = this.days_until(config.ico_start_date);
           });
@@ -98,6 +101,10 @@ export class CalculatorComponent implements OnInit {
       expirationHours: expirationHours,
       expirationDays: expirationDays
     };
+  }
+
+  ngOnDestroy() {
+    this.icoInfoSubscription.unsubscribe();
   }
 
 }

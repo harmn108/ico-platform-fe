@@ -1,22 +1,24 @@
-import {Component, OnInit, PLATFORM_ID, Inject} from '@angular/core';
+import {Component, OnInit, PLATFORM_ID, Inject, OnDestroy} from '@angular/core';
 import {ConfigService} from '../../services/config.service';
 import {Bonus} from '../local/bonuse-program';
 import {Router} from '@angular/router';
 import {LanguageService} from '../../services/lenguage.service';
 import {isPlatformBrowser} from '@angular/common';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-bonus-program',
   templateUrl: './bonus-program.component.html',
   styleUrls: ['./bonus-program.component.scss']
 })
-export class BonusProgramComponent implements OnInit {
+export class BonusProgramComponent implements OnInit, OnDestroy {
 
   bonuses: Array<Bonus> = [];
   configInfo = null;
   startTime = 0;
   classReverse = '';
   preIcoBonus = null;
+  public icoInfoSubscription: Subscription;
 
   constructor(public configService: ConfigService,
               private router: Router,
@@ -29,7 +31,8 @@ export class BonusProgramComponent implements OnInit {
       if (!(this.router.url === `/${this.languageService.language.value}`)) {
         this.classReverse = 'inner';
       }
-      this.configService.getIcoDate().filter(data => data)
+      this.configService.getIcoDate();
+      this.icoInfoSubscription = this.configService.icoInfo.filter(data => data)
         .subscribe(configInfo => {
           if (!this.preIcoBonus && !this.configInfo) {
             this.preIcoBonus = configInfo.pre_ico_bonus;
@@ -111,5 +114,8 @@ export class BonusProgramComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    this.icoInfoSubscription.unsubscribe();
+  }
 
 }

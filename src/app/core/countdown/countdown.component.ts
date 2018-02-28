@@ -19,7 +19,7 @@ export class CountdownComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.configService.getIcoDate().subscribe(data => {});
+      this.configService.getIcoDate();
 
       this.icoInfoSubscription = this.configService.icoInfo.filter(data => data).subscribe( data => {
         if (this.configService.icoStage === this.configService.STAGE_EXPIRED) {

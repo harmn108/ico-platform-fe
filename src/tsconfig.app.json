@@ -10,7 +10,6 @@
   },
   "include": [
     "main.ts",
-    "main-server.ts",
     "polyfills.ts",
     "../node_modules/arcnet-js/index.ts",
     "../node_modules/arcnet-js/lib/**/*",
