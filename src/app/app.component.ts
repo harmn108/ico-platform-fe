@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
               'property=\'og:description\''
             );
 
-            this.title.setTitle(data.title);
+            // this.title.setTitle(data.title);
           }
         );
 

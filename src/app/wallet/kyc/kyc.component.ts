@@ -64,6 +64,7 @@ export class KycComponent implements OnInit {
     this.userService.submitKyc(formData).subscribe(
       () => {
         this.loading = false;
+        this.userService.hasSubmittedKyc = true;
         this.userService.goToWallet();
       },
       error => console.log(error.message));
