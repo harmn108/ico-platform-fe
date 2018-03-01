@@ -85,7 +85,7 @@ export class ConfigService {
     this.seconds = t % 60;
   }
 
-  getIcoDate() {
+  getIcoInfo() {
     if (isPlatformBrowser(this.platformId)) {
       if (!this.icoDate && !this.$icoInfo) {
         this.$icoInfo = this.http.get(this.baseUrl + "/get-configs", {headers: this.headers})

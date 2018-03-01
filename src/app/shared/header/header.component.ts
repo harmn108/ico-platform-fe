@@ -51,13 +51,15 @@ export class HeaderComponent implements OnInit {
               @Inject(PLATFORM_ID) private platformId: Object,
               public languageService: LanguageService) {
 
-    this.router.events.subscribe(event => {
-      this.currentpath = event['urlAfterRedirects'];
-      if (event instanceof NavigationEnd) {
-        this.currentLanguage = this.currentpath.slice(1, 3);
-        this.languageService.language.next(this.currentLanguage);
-      }
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.router.events.subscribe(event => {
+        this.currentpath = event['urlAfterRedirects'];
+        if (event instanceof NavigationEnd) {
+          this.currentLanguage = this.currentpath.slice(1, 3);
+          this.languageService.language.next(this.currentLanguage);
+        }
+      });
+    }
   }
 
   ngOnInit() {
@@ -103,7 +105,6 @@ export class HeaderComponent implements OnInit {
   }
 
   checkWallet() {
-    console.log('aaa: ' + this.userService.authToken, 'bbb: ' + this.userService.hasSubmittedKyc);
     if (this.userService.authToken && !this.userService.hasSubmittedKyc) {
       this.router.navigate([`${this.currentLanguage}/profile/kyc`]);
     } else if (this.userService.authToken) {

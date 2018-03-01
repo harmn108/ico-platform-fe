@@ -22,7 +22,6 @@ export class ConfirmDialogComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.data);
         if (this.data) {
             this.showTaC = this.data.showTaC;
             this.showForm = this.data.showForm;

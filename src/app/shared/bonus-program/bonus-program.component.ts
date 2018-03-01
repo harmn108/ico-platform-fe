@@ -31,15 +31,16 @@ export class BonusProgramComponent implements OnInit, OnDestroy {
       if (!(this.router.url === `/${this.languageService.language.value}`)) {
         this.classReverse = 'inner';
       }
-      this.configService.getIcoDate();
+      this.configService.getIcoInfo();
       this.icoInfoSubscription = this.configService.icoInfo.filter(data => data)
         .subscribe(configInfo => {
-          if (!this.preIcoBonus && !this.configInfo) {
-            this.preIcoBonus = configInfo.pre_ico_bonus;
-            this.configInfo = configInfo;
-            this.getIcoDuration();
-          }
-        });
+            if (!this.preIcoBonus && !this.configInfo) {
+              this.preIcoBonus = configInfo.pre_ico_bonus;
+              this.configInfo = configInfo;
+              this.getIcoDuration();
+            }
+          },
+          err => console.error(err));
     }
   }
 
@@ -78,16 +79,19 @@ export class BonusProgramComponent implements OnInit, OnDestroy {
   }
 
   currentBonus() {
-    this.configService.currentBonus()
-      .subscribe(currentBonus => {
-        this.bonuses.forEach((bonus: Bonus, index) => {
-          bonus['dateText'] = this.calculateDay(bonus.dateFrom, bonus.dateTo);
-          if (bonus.dateTo === currentBonus.dateTo) {
-            this.bonuses[index].style ? this.bonuses[index].style.push('active') : this.bonuses[index].style = ['active'];
-            return;
-          }
-        });
-      });
+    if (isPlatformBrowser(this.platformId)) {
+      this.configService.currentBonus()
+        .subscribe(currentBonus => {
+          this.bonuses.forEach((bonus: Bonus, index) => {
+            bonus['dateText'] = this.calculateDay(bonus.dateFrom, bonus.dateTo);
+            if (bonus.dateTo === currentBonus.dateTo) {
+              this.bonuses[index].style ? this.bonuses[index].style.push('active') : this.bonuses[index].style = ['active'];
+              return;
+            }
+          });
+        },
+          err => console.error(err));
+    }
   }
 
   calculateDay(dateFrom, dateTo) {

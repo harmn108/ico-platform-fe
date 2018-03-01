@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, Inject, OnDestroy, OnInit, PLATFORM_ID} from "@angular/core";
 import {UserService} from "../../services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ErrorMessage} from "../../shared/error-messages/error-messages";
@@ -11,6 +11,7 @@ import {WalletType} from "../../shared/local/wallet.enum";
 import {Subscription} from "rxjs/Subscription";
 import {NotificationService} from '../../services/notification.service';
 import {ErrorService} from '../../services/error.service';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: "app-profile",
@@ -38,6 +39,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   bonusFromReferrals = 0;
   contributionDescriptionsData;
   public languageSub: Subscription;
+  public confirmAgreementSub: Subscription;
 
   constructor(public userService: UserService,
               private activatedRoute: ActivatedRoute,
@@ -47,36 +49,39 @@ export class ProfileComponent implements OnInit, OnDestroy {
               public configService: ConfigService,
               public languageService: LanguageService,
               private notificationService: NotificationService,
-              private errorService: ErrorService) {
+              private errorService: ErrorService,
+              @Inject(PLATFORM_ID) private platformId: Object) {
   }
 
   ngOnInit() {
-    this.languageSub = this.languageService.language.subscribe(lang => {
-      this.language = lang;
-      this.agreement = this.userService.agreement;
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.languageSub = this.languageService.language.subscribe(lang => {
+        this.language = lang;
+        this.agreement = this.userService.agreement;
+      });
 
-    this.configService.getIcoDate();
-    this.icoInfoSubscription = this.configService.icoInfo.subscribe(
-      data => {
-        this.walletTotalBalance = this.userService.currentBalance;
-        if (!this.userService.profileHashParams) {
-          this.activatedRoute.params.subscribe(params => {
-            if (params.code && params.code.length === 32) {
-              if (!this.userService.authToken) {
-                this.userService.profileHashParams = params.code;
-                this.chooseWallet(params.code);
+      this.configService.getIcoInfo();
+      this.icoInfoSubscription = this.configService.icoInfo.subscribe(
+        data => {
+          this.walletTotalBalance = this.userService.currentBalance;
+          if (!this.userService.profileHashParams) {
+            this.activatedRoute.params.subscribe(params => {
+              if (params.code && params.code.length === 32) {
+                if (!this.userService.authToken) {
+                  this.userService.profileHashParams = params.code;
+                  this.chooseWallet(params.code);
+                }
+              } else if (!this.userService.authToken) {
+                this.error = ErrorMessage["user_not_found"];
+                this.router.navigate([`${this.language}/page-not-found`]);
               }
-            } else if (!this.userService.authToken) {
-              this.error = ErrorMessage["user_not_found"];
-              this.router.navigate([`${this.language}/page-not-found`]);
-            }
-          });
-        }
+            });
+          }
 
-        this.getContributionDescriptions();
-      }
-    );
+          this.getContributionDescriptions();
+        }
+      );
+    }
 
     this.contentService.addHomeClassEvent$.emit("profile-body");
     this.error = "";
@@ -87,6 +92,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.languageSub) {
       this.languageSub.unsubscribe();
     }
+    this.confirmAgreementSub.unsubscribe();
   }
 
   getContributionDescriptions() {
@@ -118,7 +124,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   setWallet(index: number): any {
     this.currentWallet = this.wallets[index].shortname;
-    console.log(this.currentWallet);
   }
 
   private chooseWallet(code) {
@@ -129,7 +134,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
           // set it in the userservice so the user cannot navigate
           // to his wallet if he hasnt submitted
           this.userService.hasSubmittedKyc = walletinfo.hasSubmittedKyc;
-          console.log('hsk', walletinfo.hasSubmittedKyc);
           this.userService.isVerified = walletinfo.verified;
           this.agreement = walletinfo.agreement;
           this.walletTotalBalance = walletinfo.balance;
@@ -167,9 +171,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     dialogRef.disableClose = true;
 
     dialogRef.afterClosed().subscribe(result => {
-      this.userService.confirmAgreement().subscribe(
-        agreement => this.agreement = agreement
-      );
-    });
+        this.confirmAgreementSub = this.userService.confirmAgreement();
+        this.userService.agreementChanged.subscribe(
+          agreement => this.agreement = agreement,
+          err => console.error(err));
+      },
+      err => console.error(err));
   }
 }

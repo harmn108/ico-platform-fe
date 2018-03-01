@@ -34,7 +34,6 @@ if (params.use_ssl) {
   // have it listen on 8080
   http.listen(params.http_port);
 }
-
 // =====================================================================
 
 function angularRouter(req, res) {
@@ -103,7 +102,7 @@ app.engine('html', ngExpressEngine({
   ]
 }));
 
-app.get('/', angularRouter);
+  app.get('/', angularRouter);
 
 // =====================================================================
 app.set('view engine', 'html');

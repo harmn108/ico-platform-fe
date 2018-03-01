@@ -38,7 +38,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
         this.bonusData = {};
 
         if (this.configService.icoStage === this.configService.STAGE_PREICO) {
-          this.configService.getIcoDate();
+          this.configService.getIcoInfo();
           this.icoInfoSubscription = this.configService.icoInfo.subscribe(config => {
             this.bonusData.bonus = config.pre_ico_bonus;
             this.bonusData.daysLeft = this.days_until(config.ico_start_date);
@@ -48,12 +48,11 @@ export class CalculatorComponent implements OnInit, OnDestroy {
           this.configService.currentBonus().subscribe(config => {
             this.bonusData = config;
             this.bonusData.daysLeft = this.days_until(this.bonusData.dateTo);
-          });
+          }, err => console.error(err));
         }
 
         this.buildForm();
         this.calculatorForm.valueChanges.subscribe(data => {
-          // console.log(data);
           this.calculate(data);
           this.selectedCurrency = data.currency;
         });

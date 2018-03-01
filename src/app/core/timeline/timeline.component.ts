@@ -1,8 +1,9 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
 import {ApiService} from '../../services/api.service';
 import {LanguageService} from '../../services/lenguage.service';
 import {ConfigService} from '../../services/config.service';
 import {Subscription} from 'rxjs/Subscription';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-timeline',
@@ -42,27 +43,33 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   constructor(private apiService: ApiService,
               public configService: ConfigService,
-              public languageService: LanguageService) {
+              public languageService: LanguageService,
+              @Inject(PLATFORM_ID) private platformId: Object) {
   }
 
   ngOnInit() {
-    if (!this.timeline) {
-      this.languageSub = this.languageService.language.subscribe(lang => {
-        this.apiService.getTimelines(lang).subscribe(
-          data => {
-            this.timeline = data;
+    if (isPlatformBrowser(this.platformId)) {
+      this.configService.getIcoInfo();
+      if (!this.timeline) {
+        this.languageSub = this.languageService.language.subscribe(lang => {
+            this.apiService.getTimelines(lang).subscribe(
+              data => {
+                this.timeline = data;
+              },
+              err => console.error(err)
+            );
           },
-          err => console.error(err)
-        );
-      });
+          err => console.error(err));
+      }
     }
 
-    this.configService.getIcoDate();
+    this.configService.getIcoInfo();
     this.icoInfoSubscription = this.configService.icoInfo.filter(data => data).subscribe(config => {
-      if (config.current_timestamp) {
-        this.now = config.current_timestamp;
-      }
-    });
+        if (config.current_timestamp) {
+          this.now = config.current_timestamp;
+        }
+      },
+      err => console.error(err));
   }
 
   ngOnDestroy() {

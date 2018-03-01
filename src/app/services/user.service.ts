@@ -31,6 +31,9 @@ export class UserService {
   profileHashParams = "";
   eth = new BehaviorSubject(null);
   btc = new BehaviorSubject(null);
+  emailSubmitChanged = new BehaviorSubject(null);
+  referralEmailSubmitChanged = new BehaviorSubject(null);
+  agreementChanged = new BehaviorSubject(null);
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -40,19 +43,20 @@ export class UserService {
 
   emailSubmit(email: string, lang: string, agreement: number) {
     if (isPlatformBrowser(this.platformId)) {
-      return this.http.put(this.usersUrl, {email, lang, agreement}, {headers: this.headers})
-        .map(res => res)
-        .catch(err => this.handleError(err));
+      this.http.put(this.usersUrl, {email, lang, agreement}, {headers: this.headers})
+        .catch(err => this.handleError(err))
+        .subscribe(res => this.emailSubmitChanged.next(res));
     }
   }
 
   referralEmailSubmit(email: string, lang: string) {
     if (isPlatformBrowser(this.platformId)) {
-      return this.http.post(environment.ico_backend_url + "/api/v1/user/send-referral-link", {
+      this.http.post(environment.ico_backend_url + "/api/v1/user/send-referral-link", {
         email,
         lang
       }, {headers: this.headers})
-        .catch(err => this.handleError(err));
+        .catch(err => this.handleError(err))
+        .subscribe(res => this.referralEmailSubmitChanged.next(res));
     }
   }
 
@@ -129,8 +133,11 @@ export class UserService {
     const tokenHeader = new HttpHeaders({"X-AUTH-TOKEN": this.authToken});
     if (isPlatformBrowser(this.platformId)) {
       return this.http.post(this.usersUrl + "/agreement-confirmation", "", {headers: tokenHeader})
-        .map(res => this.agreement = 1)
-      .catch(err => this.handleError(err));
+      .catch(err => this.handleError(err))
+        .subscribe(res => {
+          this.agreement = 1;
+          this.agreementChanged.next(res);
+        });
 
     }
   }

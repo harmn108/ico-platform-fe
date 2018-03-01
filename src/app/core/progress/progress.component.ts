@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
 import {ConfigService} from '../../services/config.service';
 import {ApiService} from '../../services/api.service';
 import {Subscription} from 'rxjs/Subscription';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-progress',
@@ -20,21 +21,27 @@ export class ProgressComponent implements OnInit, OnDestroy {
   public spanStyle = {left: '', right: ''};
   private readonly minProgressLen = 2;
   public icoInfoSubscription: Subscription;
+  public totalTransfersSub: Subscription;
 
-  constructor(private apiService: ApiService, private configService: ConfigService) {
+  constructor(private apiService: ApiService,
+              private configService: ConfigService,
+              @Inject(PLATFORM_ID) private platformId: Object) {
   }
 
   ngOnInit() {
-    this.configService.getIcoDate();
-    this.icoInfoSubscription = this.configService.icoInfo.subscribe(configs => {
-      this.softCap = configs.soft_cap;
-      this.hardCap = configs.hard_cap;
-      this.getCurrentProgress();
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.configService.getIcoInfo();
+      this.icoInfoSubscription = this.configService.icoInfo.subscribe(configs => {
+          this.softCap = configs.soft_cap;
+          this.hardCap = configs.hard_cap;
+          this.getCurrentProgress();
+        },
+        err => console.error(err));
+    }
   }
 
   getCurrentProgress() {
-    this.apiService.getTotalTransfers()
+    this.totalTransfersSub = this.apiService.getTotalTransfers()
       .subscribe(data => {
           if (data && data['totalSoldToken']) {
             this.currentProgress = data['totalSoldToken'];
@@ -84,14 +91,12 @@ export class ProgressComponent implements OnInit, OnDestroy {
             // console.log(this.softCap, this.hardCap, this.currentProgress);
           }
         },
-        err => {
-          console.error(err);
-        }
-      );
+        err => console.error(err));
 
   }
 
   ngOnDestroy() {
     this.icoInfoSubscription.unsubscribe();
+    this.totalTransfersSub.unsubscribe();
   }
 }

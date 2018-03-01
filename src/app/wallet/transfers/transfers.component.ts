@@ -13,9 +13,6 @@ export class TransfersComponent implements OnInit {
   wallets = [];
   bitcoinTotalToken = 0;
   ethereumTotalToken = 0;
-  moneroTotalToken = 0;
-  bitcoinCashTotalToken = 0;
-  litecoinTotalToken = 0;
   transactions = [];
   step = 0;
   error = '';
@@ -41,18 +38,6 @@ export class TransfersComponent implements OnInit {
                 transaction['key'] = wallet;
                 this.ethereumTotalToken += transaction['tokenAmount'];
               }
-              if (wallet === WalletType.BitcoinCash) {
-                transaction['key'] = wallet;
-                this.bitcoinCashTotalToken += transaction['tokenAmount'];
-              }
-              if (wallet === WalletType.Monero) {
-                transaction['key'] = wallet;
-                this.moneroTotalToken += transaction['tokenAmount'];
-              }
-              if (wallet === WalletType.Litecoin) {
-                transaction['key'] = wallet;
-                this.litecoinTotalToken += transaction['tokenAmount'];
-              }
             });
 
 
@@ -63,12 +48,6 @@ export class TransfersComponent implements OnInit {
             }
 
             this.transactions.sort(function (a, b) {
-              // if (b.ethereumTransactionDate) {
-              //     return b.ethereumTransactionDate - (a.ethereumTransactionDate || a.explorerTransactionDate);
-              // }
-              // if (b.explorerTransactionDate) {
-              //     return b.explorerTransactionDate - (a.explorerTransactionDate || a.ethereumTransactionDate);
-              // }
               return b.transactionDate - a.transactionDate;
             });
           },
