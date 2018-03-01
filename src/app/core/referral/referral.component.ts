@@ -148,8 +148,8 @@ export class ReferralComponent implements OnInit, OnDestroy {
       this.languageSub.unsubscribe();
     }
 
-    this.configDataSub.unsubscribe();
-    this.referralEmailSubmitSub.unsubscribe();
+    this.configDataSub && this.configDataSub.unsubscribe();
+    this.referralEmailSubmitSub && this.referralEmailSubmitSub.unsubscribe();
   }
 }
 

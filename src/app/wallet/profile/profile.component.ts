@@ -92,7 +92,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.languageSub) {
       this.languageSub.unsubscribe();
     }
-    this.confirmAgreementSub.unsubscribe();
+    this.confirmAgreementSub && this.confirmAgreementSub.unsubscribe();
   }
 
   getContributionDescriptions() {

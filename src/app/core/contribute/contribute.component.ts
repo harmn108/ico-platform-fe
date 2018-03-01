@@ -141,7 +141,7 @@ export class ContributeComponent implements OnInit, OnDestroy {
     if (this.languageSub) {
       this.languageSub.unsubscribe();
     }
-    this.emailSubmitSub.unsubscribe();
+    this.emailSubmitSub && this.emailSubmitSub.unsubscribe();
   }
 
 }

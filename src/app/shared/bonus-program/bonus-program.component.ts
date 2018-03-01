@@ -119,7 +119,9 @@ export class BonusProgramComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.icoInfoSubscription.unsubscribe();
+    if (this.icoInfoSubscription) {
+      this.icoInfoSubscription.unsubscribe();
+    }
   }
 
 }

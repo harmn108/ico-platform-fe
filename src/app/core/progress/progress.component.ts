@@ -96,7 +96,7 @@ export class ProgressComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.icoInfoSubscription.unsubscribe();
-    this.totalTransfersSub.unsubscribe();
+    this.icoInfoSubscription && this.icoInfoSubscription.unsubscribe();
+    this.totalTransfersSub && this.totalTransfersSub.unsubscribe();
   }
 }

@@ -103,7 +103,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.icoInfoSubscription.unsubscribe();
+    this.icoInfoSubscription && this.icoInfoSubscription.unsubscribe();
   }
 
 }

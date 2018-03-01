@@ -76,6 +76,6 @@ export class TimelineComponent implements OnInit, OnDestroy {
     if (this.languageSub) {
       this.languageSub.unsubscribe();
     }
-    this.icoInfoSubscription.unsubscribe();
+    this.icoInfoSubscription && this.icoInfoSubscription.unsubscribe();
   }
 }

@@ -45,3 +45,4 @@ Thumbs.db
 # configuration file
 src/environments/parameters.ts
 server.parameters.js
+server.js

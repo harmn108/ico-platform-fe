@@ -32,7 +32,7 @@ export class CountdownComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.icoInfoSubscription.unsubscribe();
+    this.icoInfoSubscription && this.icoInfoSubscription.unsubscribe();
   }
 
 }

@@ -97,7 +97,7 @@ export class ChartComponent implements OnInit, OnChanges, OnDestroy {
     if (this.languageSub) {
       this.languageSub.unsubscribe();
     }
-    this.allocationsSub.unsubscribe();
+    this.allocationsSub && this.allocationsSub.unsubscribe();
   }
 
 }
