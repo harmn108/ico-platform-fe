@@ -1,23 +1,31 @@
 import { NgModule } from '@angular/core';
 import { ServerModule } from '@angular/platform-server';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
-import { UniversalInterceptor } from './universal.interceptor';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateUniversalLoader} from './services/translate.universal.loader';
+
+export function translateFactory() {
+  return new TranslateUniversalLoader('./dist/browser/assets/i18n', '.json');
+}
 
 @NgModule({
-    imports: [
-        NoopAnimationsModule,
-        AppModule,
-        ServerModule
-    ],
-    providers: [{
-        provide: HTTP_INTERCEPTORS,
-        useClass: UniversalInterceptor,
-        multi: true
-    }],
-    bootstrap: [AppComponent]
+  imports: [
+    AppModule,
+    ServerModule,
+    ModuleMapLoaderModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: translateFactory
+      }
+    }),
+  ],
+  providers: [
+    // Add universal-only providers here
+  ],
+  bootstrap: [ AppComponent ],
 })
 export class AppServerModule {}

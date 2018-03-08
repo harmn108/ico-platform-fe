@@ -1,8 +1,12 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {
+  Component, Inject, Input, OnChanges, OnDestroy, OnInit, PLATFORM_ID, SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {BaseChartDirective} from 'ng2-charts';
 import {Subscription} from 'rxjs/Subscription';
 import {ContentService} from '../../services/content.service';
 import {LanguageService} from '../../services/lenguage.service';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-chart',
@@ -39,38 +43,42 @@ export class ChartComponent implements OnInit, OnChanges, OnDestroy {
 
   doughnutChartColors: Array<object> = [{backgroundColor: ['#3366FF', '#5982FF', '#7899FE', '#9DB4F9', '#CDD9FF']}];
   public languageSub: Subscription;
+  public allocationsSub: Subscription;
 
   constructor(private contentService: ContentService,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              @Inject(PLATFORM_ID) private platformId: Object) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
 
-    if (this.data) {
-      this.doughnutChartData = [];
-      this.doughnutChartLabels = [];
-      for (const item of this.data) {
-        this.doughnutChartLabels.push(item.title);
-        this.doughnutChartData.push(item.percent);
-      }
-      this.chartRefresh();
-    } else {
-      this.languageSub = this.languageService.language.subscribe(lang => {
-        this.contentService.getTokenAllocation(lang).subscribe(
-          data => {
-
-            if (data) {
-              this.doughnutChartData = [];
-              this.doughnutChartLabels = [];
-              for (const item of data) {
-                this.doughnutChartLabels.push(item.title);
-                this.doughnutChartData.push(item.percent);
-              }
-              this.chartRefresh();
-            }
+    if (isPlatformBrowser(this.platformId)) {
+      if (this.data) {
+        this.doughnutChartData = [];
+        this.doughnutChartLabels = [];
+        for (const item of this.data) {
+          this.doughnutChartLabels.push(item.title);
+          this.doughnutChartData.push(item.percent);
+        }
+        this.chartRefresh();
+      } else {
+        this.languageSub = this.languageService.language.subscribe(lang => {
+            this.allocationsSub = this.contentService.getTokenAllocation(lang).subscribe(
+              data => {
+                if (data) {
+                  this.doughnutChartData = [];
+                  this.doughnutChartLabels = [];
+                  for (const item of data) {
+                    this.doughnutChartLabels.push(item.title);
+                    this.doughnutChartData.push(item.percent);
+                  }
+                  this.chartRefresh();
+                }
+              },
+              err => console.error(err));
           },
-        );
-      });
+          err => console.error(err));
+      }
     }
   }
 
@@ -89,6 +97,7 @@ export class ChartComponent implements OnInit, OnChanges, OnDestroy {
     if (this.languageSub) {
       this.languageSub.unsubscribe();
     }
+    this.allocationsSub && this.allocationsSub.unsubscribe();
   }
 
 }

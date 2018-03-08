@@ -57,9 +57,8 @@ export class AppComponent implements OnInit {
             );
 
             // this.title.setTitle(data.title);
-          }
-        );
-
+          },
+          err => console.error(err));
       }
     });
   }

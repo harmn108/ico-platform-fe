@@ -6,6 +6,7 @@ import "rxjs/add/observable/interval";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {isPlatformBrowser} from "@angular/common";
+import {Subscription} from 'rxjs/Subscription';
 
 @Injectable()
 export class ConfigService {
@@ -28,7 +29,7 @@ export class ConfigService {
   public _currentBonus = new BehaviorSubject(null);
   public expirationHours = new BehaviorSubject(null);
   public expirationDays = new BehaviorSubject(null);
-  public $icoInfo: Observable<any>;
+  public $icoInfo: Subscription;
   public diff = new BehaviorSubject(null);
   public days;
   public hours;
@@ -84,36 +85,34 @@ export class ConfigService {
     this.seconds = t % 60;
   }
 
-  getIcoDate(): Observable<any> {
+  getIcoInfo() {
     if (isPlatformBrowser(this.platformId)) {
       if (!this.icoDate && !this.$icoInfo) {
-        return this.$icoInfo = this.http.get(this.baseUrl + "/get-configs", {headers: this.headers})
-          .map(data => {
-            this.icoInfo.next(data);
-            this.createCountDown(data);
-            const preIcoEnd = data["ico_start_date_timestamp"];
-            const icoStart = data["ico_end_date_timestamp"];
-            const dateNow = data["current_timestamp"];
-            if (((preIcoEnd - dateNow) > 0)) {
-              if (!this.icoDate) {
-                this.icoDate = preIcoEnd;
+        this.$icoInfo = this.http.get(this.baseUrl + "/get-configs", {headers: this.headers})
+          .catch(err => this.handleErrorObs(err))
+          .subscribe(
+            data => {
+              this.icoInfo.next(data);
+              this.createCountDown(data);
+              const preIcoEnd = data["ico_start_date_timestamp"];
+              const icoStart = data["ico_end_date_timestamp"];
+              const dateNow = data["current_timestamp"];
+              if (((preIcoEnd - dateNow) > 0)) {
+                if (!this.icoDate) {
+                  this.icoDate = preIcoEnd;
+                }
+                this.icoStage = this.STAGE_PREICO;
+              } else if ((icoStart - dateNow) > 0) {
+                if (!this.icoDate) {
+                  this.icoDate = icoStart;
+                }
+                this.icoStage = this.STAGE_ICO;
+              } else {
+                this.icoStage = this.STAGE_EXPIRED;
               }
-              this.icoStage = this.STAGE_PREICO;
-            } else if ((icoStart - dateNow) > 0) {
-              if (!this.icoDate) {
-                this.icoDate = icoStart;
-              }
-              this.icoStage = this.STAGE_ICO;
-            } else {
-              this.icoStage = this.STAGE_EXPIRED;
             }
-
-            return data;
-          })
-          .catch(err => this.handleErrorObs(err));
+          );
       }
-
-      return this.icoInfo;
     }
   }
 

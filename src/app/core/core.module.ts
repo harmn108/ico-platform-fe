@@ -32,7 +32,6 @@ import {ProgressComponent} from './progress/progress.component';
   ],
   declarations: [
     HomeComponent,
-    HomeComponent,
     CountdownComponent,
     TimelineComponent,
     HomepageComponent,

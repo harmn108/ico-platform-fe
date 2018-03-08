@@ -53,10 +53,9 @@ export function exportTranslateStaticLoader(http: HttpClient) {
     SharedModule,
     // BrowserModule,
     HttpClientModule,
-    CoreModule,
-    WalletModule,
     MatCardModule,
     MatIconModule,
+    CoreModule,
     TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,

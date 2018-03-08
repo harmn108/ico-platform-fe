@@ -31,7 +31,7 @@ npm run init-params
 but check is stopped last `forever` script
 
 > ----RECOMMEND---- run `npm run ssr-check`, check is work node, if success, close node and 
-run `forever start server.js`
+run `forever start server.ts`
 
 > `forever list` shows all forever scripts. copy id of script and run
 `forever stop {id}` to stopping listener  

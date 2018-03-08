@@ -33,7 +33,6 @@ export class WalletComponent implements OnInit, OnChanges {
       .subscribe(
         data => {
           // if ( changes.walletName.currentValue === wallet ) {
-          console.log('neeed', data);
           this.wallet = data;
           // }
         },

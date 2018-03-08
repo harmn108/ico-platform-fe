@@ -5,14 +5,13 @@ import {NavigationEnd, Router} from '@angular/router';
 @Injectable()
 export class LanguageService {
 
-    public language = new BehaviorSubject('');
+  public language = new BehaviorSubject('');
 
-    constructor(private router: Router) {
-        this.router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
-                this.language.next(event['urlAfterRedirects'].slice(1, 3));
-            }
-        });
-    }
+  constructor(private router: Router) {
+    this.router.events.filter(event => event instanceof NavigationEnd)
+      .subscribe(event => {
+        this.language.next(event['urlAfterRedirects'].slice(1, 3));
+      });
+  }
 
 }

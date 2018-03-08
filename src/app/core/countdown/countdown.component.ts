@@ -15,22 +15,24 @@ export class CountdownComponent implements OnInit, OnDestroy {
 
   constructor(public configService: ConfigService,
               public userService: UserService,
-              @Inject(PLATFORM_ID) private platformId: Object) { }
+              @Inject(PLATFORM_ID) private platformId: Object) {
+  }
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.configService.getIcoDate().subscribe(data => {});
+      this.configService.getIcoInfo();
 
-      this.icoInfoSubscription = this.configService.icoInfo.filter(data => data).subscribe( data => {
-        if (this.configService.icoStage === this.configService.STAGE_EXPIRED) {
-          return;
-        }
-      });
+      this.icoInfoSubscription = this.configService.icoInfo.filter(data => data).subscribe(data => {
+          if (this.configService.icoStage === this.configService.STAGE_EXPIRED) {
+            return;
+          }
+        },
+        err => console.error(err));
     }
   }
 
   ngOnDestroy() {
-    this.icoInfoSubscription.unsubscribe();
+    this.icoInfoSubscription && this.icoInfoSubscription.unsubscribe();
   }
 
 }

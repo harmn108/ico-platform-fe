@@ -1,22 +1,24 @@
-import {Component, OnInit, PLATFORM_ID, Inject} from '@angular/core';
+import {Component, OnInit, PLATFORM_ID, Inject, OnDestroy} from '@angular/core';
 import {ConfigService} from '../../services/config.service';
 import {Bonus} from '../local/bonuse-program';
 import {Router} from '@angular/router';
 import {LanguageService} from '../../services/lenguage.service';
 import {isPlatformBrowser} from '@angular/common';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-bonus-program',
   templateUrl: './bonus-program.component.html',
   styleUrls: ['./bonus-program.component.scss']
 })
-export class BonusProgramComponent implements OnInit {
+export class BonusProgramComponent implements OnInit, OnDestroy {
 
   bonuses: Array<Bonus> = [];
   configInfo = null;
   startTime = 0;
   classReverse = '';
   preIcoBonus = null;
+  public icoInfoSubscription: Subscription;
 
   constructor(public configService: ConfigService,
               private router: Router,
@@ -29,14 +31,16 @@ export class BonusProgramComponent implements OnInit {
       if (!(this.router.url === `/${this.languageService.language.value}`)) {
         this.classReverse = 'inner';
       }
-      this.configService.getIcoDate().filter(data => data)
+      this.configService.getIcoInfo();
+      this.icoInfoSubscription = this.configService.icoInfo.filter(data => data)
         .subscribe(configInfo => {
-          if (!this.preIcoBonus && !this.configInfo) {
-            this.preIcoBonus = configInfo.pre_ico_bonus;
-            this.configInfo = configInfo;
-            this.getIcoDuration();
-          }
-        });
+            if (!this.preIcoBonus && !this.configInfo) {
+              this.preIcoBonus = configInfo.pre_ico_bonus;
+              this.configInfo = configInfo;
+              this.getIcoDuration();
+            }
+          },
+          err => console.error(err));
     }
   }
 
@@ -75,16 +79,19 @@ export class BonusProgramComponent implements OnInit {
   }
 
   currentBonus() {
-    this.configService.currentBonus()
-      .subscribe(currentBonus => {
-        this.bonuses.forEach((bonus: Bonus, index) => {
-          bonus['dateText'] = this.calculateDay(bonus.dateFrom, bonus.dateTo);
-          if (bonus.dateTo === currentBonus.dateTo) {
-            this.bonuses[index].style ? this.bonuses[index].style.push('active') : this.bonuses[index].style = ['active'];
-            return;
-          }
-        });
-      });
+    if (isPlatformBrowser(this.platformId)) {
+      this.configService.currentBonus()
+        .subscribe(currentBonus => {
+          this.bonuses.forEach((bonus: Bonus, index) => {
+            bonus['dateText'] = this.calculateDay(bonus.dateFrom, bonus.dateTo);
+            if (bonus.dateTo === currentBonus.dateTo) {
+              this.bonuses[index].style ? this.bonuses[index].style.push('active') : this.bonuses[index].style = ['active'];
+              return;
+            }
+          });
+        },
+          err => console.error(err));
+    }
   }
 
   calculateDay(dateFrom, dateTo) {
@@ -111,5 +118,10 @@ export class BonusProgramComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    if (this.icoInfoSubscription) {
+      this.icoInfoSubscription.unsubscribe();
+    }
+  }
 
 }
