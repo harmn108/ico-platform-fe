@@ -65,6 +65,7 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.isBrowser = isPlatformBrowser(this.platformId);
 
     //
