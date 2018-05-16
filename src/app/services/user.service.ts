@@ -34,6 +34,7 @@ export class UserService {
   emailSubmitChanged = new BehaviorSubject(null);
   referralEmailSubmitChanged = new BehaviorSubject(null);
   agreementChanged = new BehaviorSubject(null);
+  referralkey = '';
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -43,7 +44,7 @@ export class UserService {
 
   emailSubmit(email: string, lang: string, agreement: number) {
     if (isPlatformBrowser(this.platformId)) {
-      this.http.put(this.usersUrl, {email, lang, agreement}, {headers: this.headers})
+      this.http.put(this.usersUrl, {email, lang, agreement, referralKey: this.referralkey}, {headers: this.headers})
         .catch(err => this.handleError(err))
         .subscribe(res => this.emailSubmitChanged.next(res));
     }

@@ -1,5 +1,5 @@
 import {Component, Injectable, Inject, OnInit, PLATFORM_ID} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {isPlatformBrowser} from '@angular/common';
 import {environment} from '../../../environments/environment';
@@ -52,7 +52,8 @@ export class HomepageComponent implements OnInit {
               private broadcaster: Broadcaster,
               public windowRef: WindowRefService,
               @Inject(PLATFORM_ID) private platformId: Object,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private route: ActivatedRoute) {
 
     this.router.events.subscribe(event => {
       (event['url'] && ((event['url'].slice(4, 11) === 'profile') || (event['url'].slice(4, 10) === 'wallet')))
@@ -65,7 +66,11 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.route.queryParams.subscribe(param => {
+      if (!this.userService.referralkey) {
+        this.userService.referralkey = param.referral;
+      }
+    });
     this.isBrowser = isPlatformBrowser(this.platformId);
 
     //
