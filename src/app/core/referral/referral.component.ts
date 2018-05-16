@@ -45,7 +45,7 @@ export class ReferralComponent implements OnInit, OnDestroy {
   public configDataSub: Subscription;
   public referralEmailSubmitSub: Subscription;
 
-  private readonly icoBackendUrl = environment.ico_frontend_url + '?referral=';
+  private readonly icoBackendUrl = environment.ico_frontend_url + '/en?referral=';
   public isUserAuthenticated;
 
   constructor(private formBuilder: FormBuilder,
@@ -81,14 +81,16 @@ export class ReferralComponent implements OnInit, OnDestroy {
       });
 
       this.configDataSub = this.configService.icoInfo.subscribe(config => {
-          if (config.referral_bonus_percent) {
-            this.bonusInfo.push(config.referral_bonus_percent);
-          }
-          if (config.referral_max_bonus) {
-            this.bonusInfo.push(config.referral_max_bonus);
-          }
-          if (config.referral_min_amount) {
-            this.bonusInfo.push(config.referral_min_amount);
+          if (config) {
+            if (config.referral_bonus_percent) {
+              this.bonusInfo.push(config.referral_bonus_percent);
+            }
+            if (config.referral_max_bonus) {
+              this.bonusInfo.push(config.referral_max_bonus);
+            }
+            if (config.referral_min_amount) {
+              this.bonusInfo.push(config.referral_min_amount);
+            }
           }
         },
         err => console.error(err));
